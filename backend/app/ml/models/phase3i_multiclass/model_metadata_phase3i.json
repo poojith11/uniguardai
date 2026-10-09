@@ -1,0 +1,73 @@
+{
+  "model_name": "uniguard-true-4class-detector",
+  "model_version": "5.0.0",
+  "feature_schema_version": "2.0.0",
+  "feature_count": 27,
+  "features": [
+    "duration_seconds",
+    "packet_count",
+    "byte_count",
+    "packets_per_second",
+    "bytes_per_second",
+    "mean_packet_size",
+    "std_packet_size",
+    "min_packet_size",
+    "max_packet_size",
+    "packet_size_entropy",
+    "mean_iat_seconds",
+    "std_iat_seconds",
+    "min_iat_seconds",
+    "max_iat_seconds",
+    "iat_jitter_seconds",
+    "burstiness_ratio",
+    "syn_count",
+    "ack_count",
+    "fin_count",
+    "rst_count",
+    "psh_count",
+    "urg_count",
+    "syn_ratio",
+    "ack_ratio",
+    "rst_ratio",
+    "is_well_known_dst_port",
+    "is_ephemeral_src_port"
+  ],
+  "training_capture_ids": [
+    "Wed14_Server28",
+    "Wed14_Subnet27",
+    "Fri16_WebServer25",
+    "Fri16_Subnet21",
+    "CTU13_Neris"
+  ],
+  "validation_capture_ids": [
+    "Thu15_Subnet21"
+  ],
+  "unseen_test_capture_ids": [
+    "Wed21_WebServer25",
+    "Wed21_Client62",
+    "Fri02_Client95"
+  ],
+  "training_timestamp": "2026-08-27T12:46:30.279455+00:00",
+  "supervised_algorithm": "HistGradientBoostingClassifier",
+  "anomaly_algorithm": "IsolationForest",
+  "validation_metrics": {
+    "accuracy": 0.8571,
+    "macro_f1": 0.4566
+  },
+  "unseen_test_metrics": {
+    "accuracy": 0.8224,
+    "macro_f1": 0.4362,
+    "weighted_f1": 0.87,
+    "macro_precision": 0.5,
+    "macro_recall": 0.3959,
+    "benign_false_positive_rate": 2.82,
+    "isolation_forest_fpr_benign": 31.07,
+    "isolation_forest_threat_recall": 45.12,
+    "mean_inference_latency_ms": 14.25332,
+    "median_inference_latency_ms": 14.00471,
+    "p95_inference_latency_ms": 16.22443,
+    "p99_inference_latency_ms": 22.33407,
+    "throughput_flows_per_sec": 70.2
+  },
+  "feature_importance": {}
+}

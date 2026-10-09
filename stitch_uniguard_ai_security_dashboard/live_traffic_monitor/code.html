@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNIGUARD AI - Live Traffic</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#930013",
+                      "on-error-container": "#ffdad6",
+                      "on-background": "#d4e4fa",
+                      "surface-container-highest": "#273647",
+                      "surface-bright": "#2c3a4c",
+                      "surface-container-lowest": "#010f1f",
+                      "tertiary": "#ffe7e5",
+                      "on-secondary-container": "#00311f",
+                      "surface-dim": "#051424",
+                      "error": "#ffb4ab",
+                      "surface-container-high": "#1c2b3c",
+                      "on-error": "#690005",
+                      "tertiary-fixed-dim": "#ffb3ad",
+                      "on-surface-variant": "#bac9cc",
+                      "on-surface": "#d4e4fa",
+                      "primary-fixed-dim": "#00daf3",
+                      "surface-container-low": "#0d1c2d",
+                      "inverse-primary": "#006875",
+                      "on-primary": "#00363d",
+                      "surface-container": "#122131",
+                      "on-primary-fixed": "#001f24",
+                      "on-tertiary": "#68000a",
+                      "tertiary-fixed": "#ffdad7",
+                      "inverse-on-surface": "#233143",
+                      "surface": "#051424",
+                      "primary": "#c3f5ff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "inverse-surface": "#d4e4fa",
+                      "on-tertiary-container": "#b1121f",
+                      "on-primary-container": "#00626e",
+                      "background": "#051424",
+                      "surface-variant": "#273647",
+                      "secondary": "#4edea3",
+                      "on-secondary": "#003824",
+                      "on-secondary-fixed": "#002113",
+                      "secondary-container": "#00a572",
+                      "on-tertiary-fixed": "#410004",
+                      "secondary-fixed-dim": "#4edea3",
+                      "secondary-fixed": "#6ffbbe",
+                      "tertiary-container": "#ffc1bc",
+                      "on-primary-fixed-variant": "#004f58",
+                      "primary-container": "#00e5ff",
+                      "outline-variant": "#3b494c",
+                      "error-container": "#93000a",
+                      "outline": "#849396",
+                      "primary-fixed": "#9cf0ff",
+                      "surface-tint": "#00daf3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-padding": "24px",
+                      "unit": "4px",
+                      "component-gap": "12px",
+                      "gutter": "16px",
+                      "section-margin": "32px"
+              },
+              "fontFamily": {
+                      "body-base": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .ghost-border { border: 1px solid #2d3139; }
+        .card-surface { background-color: #16181d; }
+        .card-hover:hover { background-color: #1f2229; }
+        
+        .pulse-active {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(0, 229, 255, 0.15); }
+            50% { opacity: .7; box-shadow: 0 0 16px rgba(0, 229, 255, 0.3); }
+        }
+
+        .data-stream {
+            overflow: hidden;
+            position: relative;
+        }
+        .data-row {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-base overflow-x-hidden min-h-screen">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary font-body-base text-body-base h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-container-padding z-50">
+<div class="px-container-padding mb-8">
+<h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-primary">UNIGUARD AI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Institutional Grade</p>
+</div>
+<div class="flex-1 overflow-y-auto w-full px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold border-r-2 border-primary bg-surface-container-highest bg-opacity-50 opacity-80 duration-150 rounded" href="#">
+<span class="material-symbols-outlined">router</span>
+<span>Live Traffic</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">security</span>
+<span>Threat Detection</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span>Alerts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Traffic Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span>Detection Models</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span>System Health</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="px-container-padding mt-auto pt-4">
+<button class="w-full bg-primary-container text-on-primary-fixed font-label-caps text-label-caps font-bold py-3 rounded ghost-border hover:bg-primary transition-colors">
+                GENERATE REPORT
+            </button>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary font-label-caps text-label-caps fixed top-0 right-0 left-64 h-16 border-b border-outline-variant flex justify-between items-center px-gutter w-full z-40">
+<div class="flex items-center gap-6 h-full">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary mr-4">UNIGUARD AI</span>
+<nav class="flex h-full items-center gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors flex h-full items-center" href="#">PASSIVE MONITORING</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors flex h-full items-center" href="#">ONE-WAY TRAFFIC ONLY</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-background ghost-border rounded px-4 py-1.5 pl-9 text-data-mono font-data-mono text-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface placeholder-on-surface-variant w-64 transition-all" placeholder="Search flows, IPs..." type="text"/>
+</div>
+<div class="flex items-center gap-3 ml-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">update</span>
+</button>
+</div>
+<div class="flex items-center gap-2 ml-4">
+<span class="flex items-center gap-1 text-secondary font-data-mono text-data-mono pulse-active px-2 py-1 rounded bg-secondary/10 ghost-border">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    STREAM ACTIVE
+                </span>
+<span class="text-on-surface-variant font-data-mono text-data-mono px-2 py-1 rounded ghost-border bg-surface-container-highest">
+                    READ-ONLY
+                </span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden ml-4">
+<img class="w-full h-full object-cover" data-alt="A highly detailed portrait of a serious cyber intelligence operator in a dark, high-tech command center. Cold blue lighting illuminates their face, reflecting off multiple monitors. The atmosphere is tense, professional, and hyper-modern, fitting a government-grade security facility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-LtWMcCM2oOhx6AEIsKOS4UGjag0O8bVJVr5yxJunfKi6l77fDEcW7s5b4LYRLX2H-KeyvTvUtrXLWBMOrL2bj7hBMyeoVbK1S8F3_WtJ82fXrJ8VfnsXH6ql58TCOjkVSjPjG47J3OC2N5aGxCy0JAdWm1bR7GXZJLytmDcVUMwJMYfYXqO9M0vlrMyAG1tgihn2gl3EUFtW-WrSK070zZNyQif5DAPE_VaGu--J_sPZlGXvZ8jUsA"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[88px] pl-64 pr-6 pb-6 min-h-screen">
+<div class="max-w-[1920px] mx-auto space-y-6">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">LIVE TRAFFIC MONITOR</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Real-time passive analysis of inbound and outbound network flows.</p>
+</div>
+<div class="flex gap-2">
+<button class="ghost-border bg-surface text-primary-container px-4 py-2 rounded font-label-caps text-label-caps hover:bg-surface-container-highest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">pause</span> PAUSE STREAM
+                    </button>
+<button class="ghost-border bg-surface text-on-surface px-4 py-2 rounded font-label-caps text-label-caps hover:bg-surface-container-highest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">filter_list</span> FILTER VIEW
+                    </button>
+</div>
+</div>
+<!-- Passive Mode Banner -->
+<div class="w-full bg-surface-container-highest ghost-border rounded p-3 flex items-center justify-center gap-3">
+<span class="material-symbols-outlined text-secondary">visibility</span>
+<span class="font-data-mono text-data-mono text-secondary tracking-widest">PASSIVE MODE — NO RETURN COMMUNICATION / NO ACTIVE PROBING</span>
+</div>
+<!-- Metrics Bar -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<div class="card-surface ghost-border rounded p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TOTAL THROUGHPUT</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">1.42</span>
+<span class="font-data-mono text-data-mono text-primary-container">Gbps</span>
+</div>
+</div>
+<div class="card-surface ghost-border rounded p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">FLOWS / SEC</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">12,450</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">flows</span>
+</div>
+</div>
+<div class="card-surface ghost-border rounded p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">PACKETS / SEC</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">245.8k</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">pps</span>
+</div>
+</div>
+<div class="card-surface ghost-border rounded p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">BYTES / SEC</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">177.5</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">MB/s</span>
+</div>
+</div>
+<div class="card-surface ghost-border rounded p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">UNIQUE SRC / DST</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">8.2k</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">/ 4.1k</span>
+</div>
+</div>
+</div>
+<!-- Traffic Graph Placeholder Area -->
+<div class="card-surface ghost-border rounded p-4 h-64 relative overflow-hidden flex flex-col">
+<div class="flex justify-between items-center mb-4 relative z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant">REAL-TIME TRAFFIC VOLUME</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-xs">T-MINUS 60s</span>
+</div>
+<div class="flex-1 w-full relative">
+<!-- Conceptual graph representation -->
+<div class="absolute inset-0 flex items-end opacity-50 px-2 pb-2">
+<div class="w-full h-full border-b border-l border-outline-variant/30 flex items-end gap-1 px-1">
+<!-- Faux bars -->
+<div class="w-full h-[20%] bg-primary-container/20"></div><div class="w-full h-[45%] bg-primary-container/20"></div><div class="w-full h-[30%] bg-primary-container/20"></div><div class="w-full h-[60%] bg-primary-container/20"></div><div class="w-full h-[80%] bg-primary-container/40"></div><div class="w-full h-[55%] bg-primary-container/20"></div><div class="w-full h-[90%] bg-error/40"></div><div class="w-full h-[70%] bg-primary-container/20"></div><div class="w-full h-[40%] bg-primary-container/20"></div><div class="w-full h-[85%] bg-primary-container/30"></div><div class="w-full h-[50%] bg-primary-container/20"></div><div class="w-full h-[65%] bg-primary-container/20"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Flow Table -->
+<div class="card-surface ghost-border rounded overflow-hidden flex flex-col flex-1">
+<div class="p-4 border-b border-[#2d3139] flex justify-between items-center bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-on-surface">LIVE FLOW INTERCEPT</span>
+<div class="font-data-mono text-data-mono text-xs text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-active"></span>
+                        CAPTURING...
+                    </div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#2d3139] bg-surface-container-highest/50 font-label-caps text-label-caps text-on-surface-variant">
+<th class="p-3 font-normal">TIMESTAMP</th>
+<th class="p-3 font-normal">SOURCE IP</th>
+<th class="p-3 font-normal">DESTINATION IP</th>
+<th class="p-3 font-normal">PROTO</th>
+<th class="p-3 font-normal">PORT</th>
+<th class="p-3 font-normal text-right">PKTS</th>
+<th class="p-3 font-normal text-right">BYTES</th>
+<th class="p-3 font-normal">STATUS</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono text-sm data-stream" id="flowTableBody">
+<!-- Rows (Static for layout, would be dynamic) -->
+<tr class="border-b border-[#2d3139]/50 card-hover">
+<td class="p-3 text-on-surface-variant">14:22:01.402</td>
+<td class="p-3 text-on-surface">192.168.1.104</td>
+<td class="p-3 text-on-surface">104.18.22.51</td>
+<td class="p-3 text-on-surface-variant">TCP</td>
+<td class="p-3 text-on-surface-variant">443</td>
+<td class="p-3 text-right">42</td>
+<td class="p-3 text-right">12.4k</td>
+<td class="p-3">
+<span class="flex items-center gap-2 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> NORMAL
+                                    </span>
+</td>
+</tr>
+<tr class="border-b border-[#2d3139]/50 card-hover bg-error-container/10">
+<td class="p-3 text-on-surface-variant">14:22:01.388</td>
+<td class="p-3 text-on-error font-bold">45.22.109.11</td>
+<td class="p-3 text-on-surface">192.168.1.10</td>
+<td class="p-3 text-on-surface-variant">UDP</td>
+<td class="p-3 text-on-error font-bold">53</td>
+<td class="p-3 text-right">850</td>
+<td class="p-3 text-right">4.2M</td>
+<td class="p-3">
+<span class="flex items-center gap-2 text-error font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> THREAT
+                                    </span>
+</td>
+</tr>
+<tr class="border-b border-[#2d3139]/50 card-hover">
+<td class="p-3 text-on-surface-variant">14:22:01.350</td>
+<td class="p-3 text-on-surface">10.0.0.5</td>
+<td class="p-3 text-on-surface">192.168.1.254</td>
+<td class="p-3 text-on-surface-variant">ICMP</td>
+<td class="p-3 text-on-surface-variant">-</td>
+<td class="p-3 text-right">4</td>
+<td class="p-3 text-right">256</td>
+<td class="p-3">
+<span class="flex items-center gap-2 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> NORMAL
+                                    </span>
+</td>
+</tr>
+<tr class="border-b border-[#2d3139]/50 card-hover bg-[#b1121f]/10">
+<td class="p-3 text-on-surface-variant">14:22:01.312</td>
+<td class="p-3 text-[#ffb4ab]">185.15.22.4</td>
+<td class="p-3 text-on-surface">192.168.1.50</td>
+<td class="p-3 text-on-surface-variant">TCP</td>
+<td class="p-3 text-[#ffb4ab]">22</td>
+<td class="p-3 text-right">15</td>
+<td class="p-3 text-right">1.1k</td>
+<td class="p-3">
+<span class="flex items-center gap-2 text-[#ffc1bc]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#ffc1bc]"></span> SUSPICIOUS
+                                    </span>
+</td>
+</tr>
+<tr class="border-b border-[#2d3139]/50 card-hover">
+<td class="p-3 text-on-surface-variant">14:22:01.290</td>
+<td class="p-3 text-on-surface">192.168.1.112</td>
+<td class="p-3 text-on-surface">8.8.8.8</td>
+<td class="p-3 text-on-surface-variant">UDP</td>
+<td class="p-3 text-on-surface-variant">53</td>
+<td class="p-3 text-right">2</td>
+<td class="p-3 text-right">128</td>
+<td class="p-3">
+<span class="flex items-center gap-2 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> NORMAL
+                                    </span>
+</td>
+</tr>
+<tr class="border-b border-[#2d3139]/50 card-hover">
+<td class="p-3 text-on-surface-variant">14:22:01.205</td>
+<td class="p-3 text-on-surface">192.168.1.104</td>
+<td class="p-3 text-on-surface">104.18.22.51</td>
+<td class="p-3 text-on-surface-variant">TCP</td>
+<td class="p-3 text-on-surface-variant">443</td>
+<td class="p-3 text-right">18</td>
+<td class="p-3 text-right">5.4k</td>
+<td class="p-3">
+<span class="flex items-center gap-2 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> NORMAL
+                                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>

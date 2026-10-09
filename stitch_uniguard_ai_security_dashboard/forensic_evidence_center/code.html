@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNIGUARD AI - Evidence Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#930013",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d4e4fa",
+                        "surface-container-highest": "#273647",
+                        "surface-bright": "#2c3a4c",
+                        "surface-container-lowest": "#010f1f",
+                        "tertiary": "#ffe7e5",
+                        "on-secondary-container": "#00311f",
+                        "surface-dim": "#051424",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#1c2b3c",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "on-surface-variant": "#bac9cc",
+                        "on-surface": "#d4e4fa",
+                        "primary-fixed-dim": "#00daf3",
+                        "surface-container-low": "#0d1c2d",
+                        "inverse-primary": "#006875",
+                        "on-primary": "#00363d",
+                        "surface-container": "#122131",
+                        "on-primary-fixed": "#001f24",
+                        "on-tertiary": "#68000a",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-on-surface": "#233143",
+                        "surface": "#051424",
+                        "primary": "#c3f5ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "inverse-surface": "#d4e4fa",
+                        "on-tertiary-container": "#b1121f",
+                        "on-primary-container": "#00626e",
+                        "background": "#051424",
+                        "surface-variant": "#273647",
+                        "secondary": "#4edea3",
+                        "on-secondary": "#003824",
+                        "on-secondary-fixed": "#002113",
+                        "secondary-container": "#00a572",
+                        "on-tertiary-fixed": "#410004",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-container": "#ffc1bc",
+                        "on-primary-fixed-variant": "#004f58",
+                        "primary-container": "#00e5ff",
+                        "outline-variant": "#3b494c",
+                        "error-container": "#93000a",
+                        "outline": "#849396",
+                        "primary-fixed": "#9cf0ff",
+                        "surface-tint": "#00daf3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "component-gap": "12px",
+                        "gutter": "16px",
+                        "section-margin": "32px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-base": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0a0b0d; color: #d4e4fa; }
+        .tech-card { background-color: #16181d; border: 1px solid #2d3139; border-radius: 0.25rem; }
+        .tech-card-hover:hover { background-color: #1f2229; border-color: #3b494c; transition: all 0.2s ease; }
+        .glow-active { box-shadow: 0 0 15px rgba(0, 229, 255, 0.15); border-color: #00e5ff; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0b0d; }
+        ::-webkit-scrollbar-thumb { background: #2d3139; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b494c; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary font-body-base text-body-base h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col py-container-padding z-50">
+<div class="px-container-padding mb-8">
+<h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-primary">UNIGUARD AI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1 tracking-wider uppercase">Institutional Grade</p>
+</div>
+<ul class="flex flex-col flex-grow overflow-y-auto">
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">dashboard</span>
+<span>Overview</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">router</span>
+<span>Live Traffic</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">security</span>
+<span>Threat Detection</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">notifications_active</span>
+<span>Alerts</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-primary font-bold border-r-2 border-primary bg-surface-container-highest bg-opacity-50 hover:bg-surface-container-highest transition-colors opacity-100 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] text-primary" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span>Evidence</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">analytics</span>
+<span>Traffic Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">psychology</span>
+<span>Detection Models</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">assessment</span>
+<span>Reports</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">health_and_safety</span>
+<span>System Health</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-container-padding py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">settings</span>
+<span>Settings</span>
+</a>
+</li>
+</ul>
+<div class="px-container-padding mt-auto pt-6 border-t border-outline-variant/30">
+<button class="w-full bg-primary-container text-on-primary-fixed font-label-caps text-label-caps uppercase py-3 px-4 rounded hover:bg-primary-fixed transition-colors flex items-center justify-center gap-2 font-bold">
+<span class="material-symbols-outlined text-[18px]">summarize</span>
+                GENERATE REPORT
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col ml-64 relative min-w-0">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary font-label-caps text-label-caps fixed top-0 right-0 left-64 h-16 border-b border-outline-variant flex justify-between items-center px-gutter w-[calc(100%-16rem)] z-40 shadow-none">
+<div class="flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors uppercase tracking-widest" href="#">PASSIVE MONITORING</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors uppercase tracking-widest" href="#">ONE-WAY TRAFFIC ONLY</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-high border border-outline-variant rounded px-3 py-1.5 opacity-60">
+<span class="material-symbols-outlined text-[16px]">search</span>
+<input class="bg-transparent border-none text-on-surface-variant font-data-mono text-[12px] focus:ring-0 p-0 w-32 placeholder-on-surface-variant/50" placeholder="Search Evidence ID..." type="text"/>
+</div>
+<button class="flex items-center gap-2 text-secondary-fixed hover:text-secondary-fixed-dim transition-colors uppercase">
+<span class="material-symbols-outlined text-[16px] animate-pulse">sensors</span>
+                    STREAM ACTIVE
+                </button>
+<div class="h-4 w-px bg-outline-variant mx-2"></div>
+<span class="text-on-surface-variant uppercase">READ-ONLY</span>
+<div class="flex items-center gap-3 ml-4 border-l border-outline-variant pl-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">update</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 mt-16 p-container-padding overflow-y-auto bg-surface-lowest">
+<!-- Page Header -->
+<div class="mb-section-margin flex justify-between items-end">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">EVIDENCE CENTER</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Immutable audit trails and Explainable AI analysis.</p>
+</div>
+<div class="flex gap-3">
+<button class="tech-card px-4 py-2 text-on-surface font-label-caps text-label-caps uppercase hover:border-primary/50 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+                        FILTER
+                    </button>
+<button class="tech-card px-4 py-2 text-primary font-label-caps text-label-caps uppercase hover:border-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                        EXPORT PCAP
+                    </button>
+</div>
+</div>
+<div class="flex h-[calc(100vh-180px)] gap-container-padding">
+<!-- Left Column: Forensic Table -->
+<div class="w-1/2 flex flex-col gap-4">
+<div class="tech-card flex-1 flex flex-col overflow-hidden relative border-[#2d3139]">
+<div class="bg-surface-container-high border-b border-[#2d3139] p-3 flex justify-between items-center z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">FORENSIC LOGS</span>
+<span class="font-data-mono text-data-mono text-primary text-[11px]">TOTAL: 4,092 EVIDENCES</span>
+</div>
+<div class="overflow-y-auto flex-1 p-2">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-[#16181d] z-10">
+<tr>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase border-b border-[#2d3139]">Alert ID</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase border-b border-[#2d3139]">Threat Vector</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase border-b border-[#2d3139]">Timestamp</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase border-b border-[#2d3139] text-right">Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tech-card-hover border-b border-[#2d3139] cursor-pointer bg-surface-container-highest/20 glow-active">
+<td class="p-3 font-data-mono text-data-mono text-on-surface text-[12px]">EVD-993-A</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="font-body-base text-body-base text-error text-[13px] font-semibold">Exfiltration attempt</span>
+</div>
+</td>
+<td class="p-3 font-data-mono text-data-mono text-on-surface-variant text-[12px]">14:32:01.44Z</td>
+<td class="p-3 text-right font-data-mono text-data-mono text-error text-[12px]">99.4%</td>
+</tr>
+<tr class="tech-card-hover border-b border-[#2d3139] cursor-pointer">
+<td class="p-3 font-data-mono text-data-mono text-on-surface text-[12px]">EVD-992-B</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-body-base text-body-base text-on-surface text-[13px]">Anomalous Lateral Mvt</span>
+</div>
+</td>
+<td class="p-3 font-data-mono text-data-mono text-on-surface-variant text-[12px]">14:28:19.92Z</td>
+<td class="p-3 text-right font-data-mono text-data-mono text-secondary text-[12px]">82.1%</td>
+</tr>
+<tr class="tech-card-hover border-b border-[#2d3139] cursor-pointer">
+<td class="p-3 font-data-mono text-data-mono text-on-surface text-[12px]">EVD-991-X</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-body-base text-body-base text-on-surface text-[13px]">DGA Domain Req</span>
+</div>
+</td>
+<td class="p-3 font-data-mono text-data-mono text-on-surface-variant text-[12px]">14:15:02.11Z</td>
+<td class="p-3 text-right font-data-mono text-data-mono text-secondary text-[12px]">76.5%</td>
+</tr>
+<tr class="tech-card-hover border-b border-[#2d3139] cursor-pointer">
+<td class="p-3 font-data-mono text-data-mono text-on-surface text-[12px]">EVD-990-Z</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<span class="font-body-base text-body-base text-on-surface-variant text-[13px]">Port Scan Sweep</span>
+</div>
+</td>
+<td class="p-3 font-data-mono text-data-mono text-on-surface-variant text-[12px]">13:55:40.00Z</td>
+<td class="p-3 text-right font-data-mono text-data-mono text-on-surface-variant text-[12px]">45.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Explainable AI Panel -->
+<div class="w-1/2 flex flex-col gap-4">
+<!-- XAI Overview Card -->
+<div class="tech-card p-4 relative overflow-hidden flex-shrink-0 glow-active border-[#00e5ff]/30 bg-surface-container-highest/20">
+<div class="absolute top-0 right-0 w-32 h-32 bg-error/10 blur-3xl rounded-full"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-1">AI INFERENCE REPORT</h3>
+<div class="font-data-mono text-data-mono text-on-surface text-[18px] font-bold">EVD-993-A</div>
+</div>
+<div class="text-right">
+<div class="font-data-mono text-data-mono text-error text-[24px] font-bold leading-none">99.4%</div>
+<div class="font-label-caps text-label-caps text-error/70 uppercase mt-1">CONFIDENCE</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 relative z-10">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase block mb-1 text-[10px]">PREDICTED CLASS</span>
+<span class="font-body-base text-body-base text-error text-[14px]">Data Exfiltration (TCP)</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase block mb-1 text-[10px]">BASELINE DELTA</span>
+<span class="font-data-mono text-data-mono text-error text-[14px]">+4,200% Volume</span>
+</div>
+</div>
+</div>
+<!-- Visual Flow / Feature Importance -->
+<div class="tech-card flex-1 flex flex-col overflow-hidden">
+<div class="bg-surface-container-high border-b border-[#2d3139] p-3 flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">DECISION TRACE</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">account_tree</span>
+</div>
+<div class="p-4 overflow-y-auto flex-1 flex flex-col gap-6 bg-[#0a0b0d]">
+<!-- Feature Impact Bars -->
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-3 text-[11px] border-b border-[#2d3139] pb-1">Top Supporting Features</h4>
+<div class="space-y-3">
+<div>
+<div class="flex justify-between font-data-mono text-data-mono text-[11px] text-on-surface-variant mb-1">
+<span>Payload Size Anomaly</span>
+<span class="text-error">0.45</span>
+</div>
+<div class="w-full bg-[#16181d] h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full" style="width: 85%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-data-mono text-data-mono text-[11px] text-on-surface-variant mb-1">
+<span>Unusual Destination AS</span>
+<span class="text-error">0.32</span>
+</div>
+<div class="w-full bg-[#16181d] h-1.5 rounded-full overflow-hidden">
+<div class="bg-error/80 h-full" style="width: 65%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-data-mono text-data-mono text-[11px] text-on-surface-variant mb-1">
+<span>Connection Duration</span>
+<span class="text-secondary">0.12</span>
+</div>
+<div class="w-full bg-[#16181d] h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 25%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Logic Flow Diagram -->
+<div class="flex-1 min-h-[150px] relative border border-[#2d3139] rounded bg-[#16181d] p-4 flex flex-col justify-center items-center">
+<div class="text-center font-label-caps text-label-caps text-on-surface-variant mb-4 opacity-50 uppercase text-[10px] absolute top-2 left-2">Extraction Path</div>
+<div class="flex items-center justify-between w-full max-w-sm relative">
+<!-- Nodes -->
+<div class="z-10 w-10 h-10 rounded bg-[#2d3139] border border-outline-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div class="z-10 w-10 h-10 rounded bg-[#2d3139] border border-primary/50 flex items-center justify-center text-primary glow-active">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+</div>
+<div class="z-10 w-10 h-10 rounded bg-error/20 border border-error flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">public</span>
+</div>
+<!-- Connecting Lines -->
+<div class="absolute left-10 right-10 h-px bg-[#2d3139] top-1/2 -translate-y-1/2 z-0 flex">
+<div class="w-1/2 h-full bg-gradient-to-r from-transparent to-primary opacity-50"></div>
+<div class="w-1/2 h-full bg-gradient-to-r from-primary to-error"></div>
+</div>
+</div>
+<div class="flex justify-between w-full max-w-sm mt-2 px-1">
+<span class="font-data-mono text-[9px] text-on-surface-variant text-center w-10">SRC<br/>10.0.4.11</span>
+<span class="font-data-mono text-[9px] text-primary text-center w-10">AI<br/>NODE</span>
+<span class="font-data-mono text-[9px] text-error text-center w-10">DST<br/>EXT</span>
+</div>
+</div>
+<!-- Raw Data Snippet -->
+<div class="bg-[#051424] border border-[#2d3139] rounded p-3 relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-[#2d3139] text-on-surface-variant font-label-caps text-[9px] px-2 py-0.5 rounded-bl">RAW PCAP</div>
+<pre class="font-data-mono text-[10px] text-on-surface-variant leading-relaxed overflow-x-auto whitespace-pre-wrap">0000   45 00 00 3c 1c 46 40 00 40 06 b1 e6 0a 00 04 0b  E..&lt;.F@.@.......
+0010   c0 a8 01 01 04 d2 00 50 00 00 00 00 00 00 00 00  .......P........
+0020   a0 02 72 10 3b 30 00 00 02 04 05 b4 04 02 08 0a  ..r.;0..........
+<span class="text-error bg-error/10 px-1">0030   FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF  [EXFIL_SIGNATURE]</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

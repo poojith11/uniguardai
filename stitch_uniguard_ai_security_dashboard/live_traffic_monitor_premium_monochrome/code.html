@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNIGUARD AI - Live Traffic Monitor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#e5e2e1",
+                        "surface": "#141313",
+                        "on-primary-container": "#636565",
+                        "secondary-fixed": "#e0e2eb",
+                        "surface-container": "#201f1f",
+                        "surface-container-highest": "#353434",
+                        "on-surface": "#e5e2e1",
+                        "on-error": "#690005",
+                        "secondary-container": "#43474e",
+                        "tertiary-fixed": "#eae1dd",
+                        "on-secondary-fixed-variant": "#43474e",
+                        "on-tertiary": "#342f2d",
+                        "on-secondary-container": "#b2b5bd",
+                        "tertiary-fixed-dim": "#cec5c1",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-surface-variant": "#c4c7c8",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-fixed-dim": "#c4c6cf",
+                        "secondary": "#c4c6cf",
+                        "on-primary-fixed": "#1a1c1c",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "on-tertiary-fixed-variant": "#4b4643",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#696360",
+                        "inverse-primary": "#5d5f5f",
+                        "surface-bright": "#3a3939",
+                        "background": "#141313",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#353434",
+                        "tertiary": "#ffffff",
+                        "primary": "#ffffff",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed": "#1f1b19",
+                        "surface-tint": "#c6c6c7",
+                        "tertiary-container": "#eae1dd",
+                        "outline-variant": "#444748",
+                        "on-primary-fixed-variant": "#454747",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#e2e2e2",
+                        "surface-container-high": "#2a2a2a",
+                        "on-secondary-fixed": "#181c22",
+                        "on-primary": "#2f3131",
+                        "on-secondary": "#2d3137",
+                        "surface-dim": "#141313",
+                        "primary-container": "#e2e2e2",
+                        "outline": "#8e9192"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "40px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "display": ["Geist"],
+                        "caption": ["Geist"],
+                        "headline-lg-mobile": ["Geist"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "label-mono": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                        "caption": ["11px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "label-mono": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.surface-dim'); color: theme('colors.on-surface'); }
+        .border-brand { border-color: #2A2B30; }
+        .grid-bg {
+            background-image: linear-gradient(to right, #2A2B30 1px, transparent 1px), linear-gradient(to bottom, #2A2B30 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md min-h-screen flex flex-col md:flex-row relative">
+<div class="fixed inset-0 grid-bg pointer-events-none z-0"></div>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex bg-surface text-on-surface font-label-mono text-label-mono h-screen w-64 fixed left-0 top-0 border-r border-brand flat no shadows flex-col py-lg z-20">
+<div class="px-lg mb-xl">
+<div class="font-headline-md text-headline-md font-bold text-on-surface">UNIGUARD AI</div>
+<div class="text-on-surface-variant mt-xs">Enterprise Security</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">dashboard</span>
+<span class="group-hover:text-primary">Overview</span>
+</a>
+<a class="flex items-center px-lg py-md bg-surface-bright text-primary border-r-2 border-primary hover:bg-surface-container-highest transition-all duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined mr-gutter text-primary">router</span>
+<span>Live Traffic</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">security</span>
+<span class="group-hover:text-primary">Threat Detection</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">notifications</span>
+<span class="group-hover:text-primary">Alerts</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">fact_check</span>
+<span class="group-hover:text-primary">Evidence</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">analytics</span>
+<span class="group-hover:text-primary">Traffic Analytics</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">psychology</span>
+<span class="group-hover:text-primary">Detection Models</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">description</span>
+<span class="group-hover:text-primary">Reports</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">rebase_edit</span>
+<span class="group-hover:text-primary">System Health</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-surface-variant hover:bg-surface-container-highest transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined mr-gutter text-on-surface-variant group-hover:text-primary">settings</span>
+<span class="group-hover:text-primary">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 relative z-10">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden bg-surface-dim text-primary font-headline-md text-headline-md font-body-md text-body-md w-full h-16 border-b border-brand flat no shadows flex justify-between items-center px-margin-mobile w-full sticky top-0 z-30">
+<div class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface">UNIGUARD AI</div>
+<div class="flex items-center gap-gutter text-on-surface-variant font-label-mono text-label-mono">
+<span class="hidden sm:inline">PASSIVE MONITORING</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary active:opacity-80">sensors</span>
+</div>
+</header>
+<!-- Page Header -->
+<div class="px-margin-mobile md:px-margin-desktop py-lg border-b border-brand sticky top-0 md:top-0 bg-surface-dim/90 backdrop-blur-sm z-20 flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight">LIVE TRAFFIC MONITOR</h1>
+<div class="font-label-mono text-label-mono text-on-surface-variant mt-xs flex items-center gap-2">
+<span class="w-2 h-2 bg-on-surface rounded-none inline-block"></span>
+                    PASSIVE MODE — NO RETURN COMMUNICATION / READ-ONLY
+                </div>
+</div>
+<div class="hidden md:flex items-center gap-gutter text-on-surface-variant font-label-mono text-label-mono bg-surface border border-brand px-md py-sm">
+<span>PASSIVE MONITORING</span>
+<span class="w-px h-4 bg-outline-variant mx-2"></span>
+<span>READ-ONLY</span>
+<span class="material-symbols-outlined ml-2 text-primary">sensors</span>
+</div>
+</div>
+<div class="p-margin-mobile md:p-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Metrics Bento -->
+<section class="col-span-1 md:col-span-12 grid grid-cols-2 md:grid-cols-5 gap-gutter">
+<div class="bg-surface border border-brand p-md hover:bg-surface-bright transition-colors">
+<div class="font-label-mono text-label-mono text-on-surface-variant mb-sm uppercase">Throughput</div>
+<div class="font-display text-display text-primary">12.4</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant mt-xs">Gbps</div>
+</div>
+<div class="bg-surface border border-brand p-md hover:bg-surface-bright transition-colors">
+<div class="font-label-mono text-label-mono text-on-surface-variant mb-sm uppercase">Flows/sec</div>
+<div class="font-display text-display text-primary">45k</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant mt-xs">45,120 avg</div>
+</div>
+<div class="bg-surface border border-brand p-md hover:bg-surface-bright transition-colors">
+<div class="font-label-mono text-label-mono text-on-surface-variant mb-sm uppercase">Packets/sec</div>
+<div class="font-display text-display text-primary">1.2M</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant mt-xs">Real-time</div>
+</div>
+<div class="bg-surface border border-brand p-md hover:bg-surface-bright transition-colors">
+<div class="font-label-mono text-label-mono text-on-surface-variant mb-sm uppercase">Bytes/sec</div>
+<div class="font-display text-display text-primary">1.5</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant mt-xs">GB</div>
+</div>
+<div class="bg-surface border border-brand p-md hover:bg-surface-bright transition-colors col-span-2 md:col-span-1">
+<div class="font-label-mono text-label-mono text-on-surface-variant mb-sm uppercase">Unique Src/Dst</div>
+<div class="font-headline-md text-headline-md text-primary mt-sm">8,932 <span class="text-on-surface-variant text-sm">/ 12,041</span></div>
+<div class="w-full bg-surface-container h-1 mt-md">
+<div class="bg-on-surface h-full" style="width: 42%"></div>
+</div>
+</div>
+</section>
+<!-- Real-time traffic graph area -->
+<section class="col-span-1 md:col-span-12 bg-surface border border-brand p-lg mt-gutter relative min-h-[300px] overflow-hidden">
+<div class="flex justify-between items-center mb-md relative z-10">
+<h2 class="font-headline-md text-headline-md text-primary">BANDWIDTH TELEMETRY</h2>
+<div class="flex gap-md font-label-mono text-label-mono">
+<span class="flex items-center gap-2"><span class="w-2 h-2 bg-on-surface"></span> Normal</span>
+<span class="flex items-center gap-2"><span class="w-2 h-2 bg-error"></span> Anomaly Spikes</span>
+</div>
+</div>
+<!-- Abstract Representation of Graph -->
+<div class="absolute inset-0 pt-16 px-lg pb-4 flex items-end justify-between gap-1 opacity-60 z-0 pointer-events-none">
+<div class="w-full h-1/4 bg-surface-container-highest"></div>
+<div class="w-full h-1/3 bg-surface-container-highest"></div>
+<div class="w-full h-1/5 bg-surface-container-highest"></div>
+<div class="w-full h-2/5 bg-surface-container-highest"></div>
+<div class="w-full h-1/2 bg-surface-container-highest"></div>
+<div class="w-full h-1/4 bg-surface-container-highest"></div>
+<div class="w-full h-full bg-error/40 border-t border-error"></div> <!-- Threat Spike -->
+<div class="w-full h-1/3 bg-surface-container-highest"></div>
+<div class="w-full h-1/4 bg-surface-container-highest"></div>
+<div class="w-full h-1/6 bg-surface-container-highest"></div>
+</div>
+<div class="relative z-10 mt-auto pt-48">
+<!-- Placeholder for actual chart rendering context -->
+<div class="w-full border-t border-brand flex justify-between pt-xs font-label-mono text-label-mono text-on-surface-variant">
+<span>T-60s</span>
+<span>T-30s</span>
+<span>NOW</span>
+</div>
+</div>
+</section>
+<!-- Flow Table -->
+<section class="col-span-1 md:col-span-12 bg-surface border border-brand mt-gutter overflow-x-auto">
+<div class="p-md border-b border-brand flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-primary">ACTIVE FLOWS</h2>
+<button class="font-label-mono text-label-mono text-on-surface border border-brand px-sm py-xs hover:bg-surface-bright transition-colors">EXPORT LOG</button>
+</div>
+<table class="w-full text-left font-label-mono text-label-mono border-collapse whitespace-nowrap">
+<thead>
+<tr class="bg-surface-bright border-b border-brand text-on-surface-variant uppercase">
+<th class="p-sm font-normal">Timestamp</th>
+<th class="p-sm font-normal">Source IP</th>
+<th class="p-sm font-normal">Dest IP</th>
+<th class="p-sm font-normal">Port</th>
+<th class="p-sm font-normal">Protocol</th>
+<th class="p-sm font-normal">Bytes</th>
+<th class="p-sm font-normal">Status</th>
+</tr>
+</thead>
+<tbody class="text-on-surface divide-y divide-[#2A2B30]">
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-sm">14:02:11.452</td>
+<td class="p-sm text-on-surface-variant">192.168.1.104</td>
+<td class="p-sm">10.0.0.5</td>
+<td class="p-sm">443</td>
+<td class="p-sm">TCP</td>
+<td class="p-sm">12.4K</td>
+<td class="p-sm"><span class="inline-flex items-center gap-xs"><span class="w-1.5 h-1.5 bg-outline-variant"></span> NORMAL</span></td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors bg-surface-container-low">
+<td class="p-sm">14:02:11.410</td>
+<td class="p-sm text-on-surface-variant">172.16.0.42</td>
+<td class="p-sm">8.8.8.8</td>
+<td class="p-sm">53</td>
+<td class="p-sm">UDP</td>
+<td class="p-sm">512</td>
+<td class="p-sm"><span class="inline-flex items-center gap-xs"><span class="w-1.5 h-1.5 bg-outline-variant"></span> NORMAL</span></td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-sm">14:02:11.389</td>
+<td class="p-sm text-on-surface-variant">45.22.19.10</td>
+<td class="p-sm">192.168.1.200</td>
+<td class="p-sm">22</td>
+<td class="p-sm">TCP</td>
+<td class="p-sm text-secondary-fixed">84.2K</td>
+<td class="p-sm"><span class="inline-flex items-center gap-xs text-secondary-fixed"><span class="w-1.5 h-1.5 bg-secondary-fixed"></span> SUSPICIOUS</span></td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors bg-error/10 border-l-2 border-l-error">
+<td class="p-sm">14:02:11.201</td>
+<td class="p-sm text-error font-bold">185.15.22.99</td>
+<td class="p-sm">10.0.0.10</td>
+<td class="p-sm">445</td>
+<td class="p-sm">TCP</td>
+<td class="p-sm text-error">1.2M</td>
+<td class="p-sm"><span class="inline-flex items-center gap-xs text-error"><span class="w-1.5 h-1.5 bg-error"></span> THREAT</span></td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-sm">14:02:11.155</td>
+<td class="p-sm text-on-surface-variant">192.168.1.15</td>
+<td class="p-sm">10.0.0.5</td>
+<td class="p-sm">443</td>
+<td class="p-sm">TCP</td>
+<td class="p-sm">4.1K</td>
+<td class="p-sm"><span class="inline-flex items-center gap-xs"><span class="w-1.5 h-1.5 bg-outline-variant"></span> NORMAL</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+</div>
+</main>
+</body></html>

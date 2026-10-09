@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNIGUARD AI - System Health &amp; Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#930013",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d4e4fa",
+                        "surface-container-highest": "#273647",
+                        "surface-bright": "#2c3a4c",
+                        "surface-container-lowest": "#010f1f",
+                        "tertiary": "#ffe7e5",
+                        "on-secondary-container": "#00311f",
+                        "surface-dim": "#051424",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#1c2b3c",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "on-surface-variant": "#bac9cc",
+                        "on-surface": "#d4e4fa",
+                        "primary-fixed-dim": "#00daf3",
+                        "surface-container-low": "#0d1c2d",
+                        "inverse-primary": "#006875",
+                        "on-primary": "#00363d",
+                        "surface-container": "#122131",
+                        "on-primary-fixed": "#001f24",
+                        "on-tertiary": "#68000a",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-on-surface": "#233143",
+                        "surface": "#051424",
+                        "primary": "#c3f5ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "inverse-surface": "#d4e4fa",
+                        "on-tertiary-container": "#b1121f",
+                        "on-primary-container": "#00626e",
+                        "background": "#051424",
+                        "surface-variant": "#273647",
+                        "secondary": "#4edea3",
+                        "on-secondary": "#003824",
+                        "on-secondary-fixed": "#002113",
+                        "secondary-container": "#00a572",
+                        "on-tertiary-fixed": "#410004",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-container": "#ffc1bc",
+                        "on-primary-fixed-variant": "#004f58",
+                        "primary-container": "#00e5ff",
+                        "outline-variant": "#3b494c",
+                        "error-container": "#93000a",
+                        "outline": "#849396",
+                        "primary-fixed": "#9cf0ff",
+                        "surface-tint": "#00daf3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "component-gap": "12px",
+                        "gutter": "16px",
+                        "section-margin": "32px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-base": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .tech-border { border: 1px solid theme('colors.outline-variant'); }
+        .tech-surface { background-color: theme('colors.surface-container-low'); }
+        .tech-surface-hover:hover { background-color: theme('colors.surface-container'); border-color: theme('colors.outline'); }
+        
+        /* Subtle glow for critical alerts or active states */
+        .glow-active { box-shadow: 0 0 15px rgba(0, 229, 255, 0.15); }
+        .glow-error { box-shadow: 0 0 15px rgba(255, 180, 171, 0.15); }
+    </style>
+</head>
+<body class="font-body-base text-body-base h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant flex flex-col py-container-padding z-50">
+<div class="px-container-padding mb-8">
+<h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-primary">UNIGUARD AI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Institutional Grade</p>
+</div>
+<div class="flex-1 overflow-y-auto w-full">
+<ul class="space-y-1 px-3">
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span> Overview
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">router</span> Live Traffic
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">security</span> Threat Detection
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">notifications_active</span> Alerts
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">inventory_2</span> Evidence
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span> Traffic Analytics
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">psychology</span> Detection Models
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">assessment</span> Reports
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-primary font-bold border-r-2 border-primary bg-surface-container rounded-l opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined mr-3">health_and_safety</span> System Health
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-3 py-3 text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined mr-3">settings</span> Settings
+                    </a>
+</li>
+</ul>
+</div>
+<div class="px-container-padding mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container font-label-caps text-label-caps py-3 rounded uppercase font-bold tech-border hover:bg-primary-fixed transition-colors">
+                GENERATE REPORT
+            </button>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-surface dark:bg-surface border-b border-outline-variant flex justify-between items-center px-gutter z-40">
+<div class="flex items-center space-x-6">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary">UNIGUARD AI</span>
+<div class="flex space-x-4">
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors" href="#">PASSIVE MONITORING</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors" href="#">ONE-WAY TRAFFIC ONLY</a>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<span class="font-label-caps text-label-caps text-secondary flex items-center"><span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>STREAM ACTIVE</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">READ-ONLY</span>
+<div class="flex space-x-2 border-l border-outline-variant pl-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">update</span>
+</button>
+<img alt="Operator Profile" class="w-8 h-8 rounded border border-outline-variant ml-2 object-cover" data-alt="A small, high-tech abstract avatar or profile icon representing a system operator. Dark background with cyan highlights, minimalist and institutional style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOk9FdH8oEYLvIJ8WPoHcGH0Em68XktMkAFrwOwy8l2m9e_uEar-JOSwFVMhTwqk1Bh7A5Sw5pvw5exPKRmIN22Bqrs4wvxV3hX3zuDDdGiriYRJUBUayOA7NXt0NXY3XxPwP76SodDGbZOnWhDW61Mx7ExdviD_hxkp02nZ1IBsHPOa0YCT1M4jCkICDlKGEiBYxLHJiHibnxdKL1MaXl_U11cSgPamfKrFdPqNvj7NU2ADKymUGU7w"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 p-container-padding h-[calc(100vh-4rem)] overflow-y-auto bg-background w-full">
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-container-padding">
+<!-- Section Header -->
+<div class="col-span-12 flex justify-between items-end mb-2">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">System Health &amp; Telemetry</h2>
+<p class="text-on-surface-variant font-data-mono text-data-mono text-sm">SYS_NODE: ALPHA-7 | UPTIME: 99.998%</p>
+</div>
+<div class="flex space-x-2">
+<span class="font-data-mono text-data-mono text-xs px-2 py-1 rounded tech-border text-secondary bg-secondary/10 flex items-center">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary mr-2"></span> ALL SYSTEMS NOMINAL
+                    </span>
+</div>
+</div>
+<!-- Health Status Cards (Top Row) -->
+<div class="col-span-12 md:col-span-4 tech-surface tech-border rounded p-4 flex flex-col justify-between tech-surface-hover transition-all">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Traffic Collector</span>
+<span class="material-symbols-outlined text-secondary">router</span>
+</div>
+<div class="mt-auto">
+<div class="flex items-center mb-1">
+<span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>
+<span class="font-body-base text-body-base text-on-surface">Healthy</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded mt-2">
+<div class="bg-secondary h-1 rounded" style="width: 100%;"></div>
+</div>
+<p class="font-data-mono text-data-mono text-xs text-on-surface-variant mt-2 text-right">Throughput: Stable</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 tech-surface tech-border rounded p-4 flex flex-col justify-between tech-surface-hover transition-all glow-active">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">AI Detection Engine</span>
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<div class="mt-auto">
+<div class="flex items-center mb-1">
+<span class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></span>
+<span class="font-body-base text-body-base text-primary font-bold">Healthy (Active Processing)</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded mt-2 overflow-hidden flex">
+<div class="bg-primary h-1 rounded" style="width: 85%;"></div>
+<div class="bg-primary/30 h-1" style="width: 15%;"></div>
+</div>
+<p class="font-data-mono text-data-mono text-xs text-primary mt-2 text-right">Load: 85% Optimal</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 tech-surface tech-border rounded p-4 flex flex-col justify-between tech-surface-hover transition-all">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Database Integrity</span>
+<span class="material-symbols-outlined text-secondary">storage</span>
+</div>
+<div class="mt-auto">
+<div class="flex items-center mb-1">
+<span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>
+<span class="font-body-base text-body-base text-on-surface">Healthy</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded mt-2">
+<div class="bg-secondary h-1 rounded" style="width: 100%;"></div>
+</div>
+<p class="font-data-mono text-data-mono text-xs text-on-surface-variant mt-2 text-right">Replication: Sync'd</p>
+</div>
+</div>
+<!-- Architecture Diagram (Main Visual) -->
+<div class="col-span-12 md:col-span-8 tech-surface tech-border rounded p-4 flex flex-col min-h-[300px]">
+<div class="flex justify-between items-center mb-4 border-b border-outline-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Passive Data Flow Architecture</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface-variant">UNIDIRECTIONAL_PATH</span>
+</div>
+<!-- Abstract Representation of Data Flow -->
+<div class="flex-1 relative flex items-center justify-between px-8">
+<!-- Source Node -->
+<div class="flex flex-col items-center z-10">
+<div class="w-16 h-16 rounded-full tech-border bg-surface-container flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">public</span>
+</div>
+<span class="font-data-mono text-data-mono text-xs text-on-surface-variant">EXTERNAL NET</span>
+</div>
+<!-- Flow Line 1 -->
+<div class="flex-1 h-[2px] bg-outline-variant relative mx-4">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 animate-[translate_2s_linear_infinite]" style="transform: translateX(-100%);"></div>
+</div>
+<!-- TAP Node -->
+<div class="flex flex-col items-center z-10">
+<div class="w-16 h-16 rounded tech-border bg-surface-container-high border-secondary flex items-center justify-center mb-2 shadow-[0_0_10px_rgba(78,222,163,0.2)]">
+<span class="material-symbols-outlined text-secondary text-3xl">call_split</span>
+</div>
+<span class="font-data-mono text-data-mono text-xs text-secondary">PASSIVE TAP</span>
+</div>
+<!-- Flow Line 2 -->
+<div class="flex-1 h-[2px] bg-outline-variant relative mx-4">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 animate-[translate_2s_linear_infinite_0.5s]" style="transform: translateX(-100%);"></div>
+<!-- Unidirectional indicator -->
+<div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-primary text-[10px]">
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+<!-- Engine Node -->
+<div class="flex flex-col items-center z-10">
+<div class="w-20 h-20 rounded-lg tech-border bg-surface border-primary flex items-center justify-center mb-2 glow-active relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/10"></div>
+<span class="material-symbols-outlined text-primary text-4xl relative z-10">memory</span>
+</div>
+<span class="font-data-mono text-data-mono text-xs text-primary font-bold">UNIGUARD CORE</span>
+</div>
+</div>
+</div>
+<!-- Technical Stats (Side Panel) -->
+<div class="col-span-12 md:col-span-4 flex flex-col gap-container-padding">
+<div class="tech-surface tech-border rounded p-4 flex-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 block border-b border-outline-variant pb-2">Hardware Telemetry</span>
+<div class="space-y-4 mt-4">
+<!-- CPU -->
+<div>
+<div class="flex justify-between font-data-mono text-data-mono text-sm mb-1">
+<span class="text-on-surface">CPU UTILIZATION</span>
+<span class="text-primary">42%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 42%;"></div>
+</div>
+</div>
+<!-- Memory -->
+<div>
+<div class="flex justify-between font-data-mono text-data-mono text-sm mb-1">
+<span class="text-on-surface">MEMORY ALLOC</span>
+<span class="text-primary">68%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-6">
+<div class="tech-border p-2 rounded bg-surface-container">
+<span class="block font-label-caps text-label-caps text-on-surface-variant text-[10px]">EVENTS / SEC</span>
+<span class="font-data-mono text-data-mono text-lg text-on-surface">12,450</span>
+</div>
+<div class="tech-border p-2 rounded bg-surface-container">
+<span class="block font-label-caps text-label-caps text-on-surface-variant text-[10px]">QUEUE SIZE</span>
+<span class="font-data-mono text-data-mono text-lg text-secondary">0.02 MB</span>
+</div>
+<div class="tech-border p-2 rounded bg-surface-container col-span-2">
+<span class="block font-label-caps text-label-caps text-on-surface-variant text-[10px]">PROCESSING LATENCY</span>
+<div class="flex items-end space-x-2">
+<span class="font-data-mono text-data-mono text-xl text-primary">4.2</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface-variant pb-1">ms avg</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Reports Integration Section -->
+<div class="col-span-12 tech-surface tech-border rounded p-4 mt-4">
+<div class="flex justify-between items-center mb-6 border-b border-outline-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Automated Intelligence Reports</span>
+<div class="flex space-x-2">
+<button class="tech-border px-3 py-1 rounded text-primary font-label-caps text-label-caps hover:bg-surface-container transition-colors flex items-center">
+<span class="material-symbols-outlined text-[16px] mr-1">download</span> EXPORT PDF
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Report Card 1 -->
+<div class="tech-border rounded p-4 bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-body-base font-semibold text-on-surface">Weekly Detection Summary</h3>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_outward</span>
+</div>
+<p class="font-data-mono text-data-mono text-xs text-on-surface-variant mb-4">Generated: 2023-10-27T08:00:00Z</p>
+<div class="flex items-center space-x-4">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-error text-[16px] mr-1">warning</span>
+<span class="font-data-mono text-data-mono text-sm text-error">3 Critical</span>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-secondary text-[16px] mr-1">check_circle</span>
+<span class="font-data-mono text-data-mono text-sm text-secondary">42 Resolved</span>
+</div>
+</div>
+</div>
+<!-- Report Card 2 -->
+<div class="tech-border rounded p-4 bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-body-base font-semibold text-on-surface">Traffic Anomaly Report</h3>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_outward</span>
+</div>
+<p class="font-data-mono text-data-mono text-xs text-on-surface-variant mb-4">Period: Last 24 Hours</p>
+<div class="flex items-center space-x-4">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-primary text-[16px] mr-1">timeline</span>
+<span class="font-data-mono text-data-mono text-sm text-on-surface">+12% Volatility</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

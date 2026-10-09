@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Traffic - UNIGUARD AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#46464a",
+                      "inverse-on-surface": "#313030",
+                      "primary-fixed-dim": "#c7c6c9",
+                      "on-background": "#e5e2e1",
+                      "on-primary-container": "#7b7b7d",
+                      "error": "#ffb4ab",
+                      "surface-bright": "#3a3939",
+                      "on-tertiary": "#352f2d",
+                      "tertiary-container": "#110d0b",
+                      "on-surface-variant": "#c6c6ca",
+                      "on-primary": "#303033",
+                      "primary-fixed": "#e3e2e5",
+                      "surface-dim": "#141313",
+                      "background": "#141313",
+                      "surface-variant": "#353434",
+                      "error-container": "#93000a",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-container-lowest": "#0e0e0e",
+                      "inverse-surface": "#e5e2e1",
+                      "on-error": "#690005",
+                      "on-secondary-fixed": "#1b1b1f",
+                      "secondary-fixed": "#e3e2e6",
+                      "on-tertiary-container": "#817a76",
+                      "surface": "#141313",
+                      "on-primary-fixed": "#1b1c1e",
+                      "tertiary": "#cec5c1",
+                      "surface-container": "#201f1f",
+                      "on-error-container": "#ffdad6",
+                      "secondary-container": "#46464a",
+                      "outline": "#909094",
+                      "on-tertiary-fixed-variant": "#4c4543",
+                      "tertiary-fixed-dim": "#cec5c1",
+                      "primary-container": "#0d0e10",
+                      "surface-tint": "#c7c6c9",
+                      "inverse-primary": "#5e5e61",
+                      "on-tertiary-fixed": "#1f1b18",
+                      "outline-variant": "#45474a",
+                      "primary": "#c7c6c9",
+                      "on-surface": "#e5e2e1",
+                      "tertiary-fixed": "#ebe0dc",
+                      "surface-container-low": "#1c1b1b",
+                      "secondary": "#c7c6ca",
+                      "secondary-fixed-dim": "#c7c6ca",
+                      "on-primary-fixed-variant": "#464749",
+                      "on-secondary": "#2f3033",
+                      "on-secondary-container": "#b5b4b8",
+                      "surface-container-highest": "#353434"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "component-gap-sm": "8px",
+                      "container-padding": "24px",
+                      "gutter": "16px",
+                      "component-gap-md": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-sm": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "data-value": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "JetBrains Mono"
+                      ],
+                      "label-caps": [
+                              "IBM Plex Sans"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-value": [
+                              "13px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .pane-border {
+            border: 1px solid #2A2B30;
+        }
+        .status-normal { color: #81b99a; } /* muted green */
+        .status-suspicious { color: #d4a373; } /* muted amber */
+        .status-threat { color: #cc7a80; } /* muted red */
+      </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen overflow-x-hidden">
+<!-- TopAppBar -->
+<nav class="fixed top-0 right-0 left-64 flex justify-between items-center px-container-padding z-40 w-full h-16 border-b border-outline-variant bg-surface-container-low dark:bg-surface-container-low">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">UNIGUARD AI</span>
+<div class="hidden md:flex gap-4">
+<span class="text-on-surface-variant font-label-caps">PASSIVE MONITORING</span>
+<span class="text-on-surface-variant font-label-caps">READ-ONLY</span>
+<span class="text-on-surface-variant font-label-caps">ONE-WAY TRAFFIC</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:scale-95" data-icon="search">search</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:scale-95" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:scale-95" data-icon="account_circle">account_circle</span>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full z-50 flex flex-col w-64 border-r border-outline-variant bg-surface-container-lowest dark:bg-surface-container-lowest transition-all active:opacity-80">
+<div class="p-4 border-b border-outline-variant">
+<h1 class="font-headline-sm text-headline-sm font-bold tracking-tight text-on-surface dark:text-on-surface">UNIGUARD AI</h1>
+<p class="font-data-value text-data-value text-on-surface-variant">Enterprise SOC</p>
+</div>
+<div class="flex-1 overflow-y-auto py-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary bg-primary border-l-2 border-primary hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="security_update_good">security_update_good</span>
+<span class="font-label-caps text-label-caps">Live Traffic</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="biometric_setup">animated_images</span>
+<span class="font-label-caps text-label-caps">Threat Detection</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-label-caps text-label-caps">Alerts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-label-caps">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-label-caps">Traffic Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-caps text-label-caps">Detection Models</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-caps text-label-caps">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+<span class="font-label-caps text-label-caps">System Health</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 pt-16 p-container-padding">
+<!-- Top Banner -->
+<div class="bg-surface-container-highest pane-border p-4 mb-gutter flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="visibility">visibility</span>
+<span class="font-label-caps text-label-caps text-on-surface uppercase">PASSIVE MODE — No return communication / No active probing</span>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-[#81b99a]"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">STREAM ACTIVE</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">READ-ONLY MODE</span>
+</div>
+</div>
+</div>
+<!-- KPIs -->
+<div class="grid grid-cols-5 gap-gutter mb-gutter">
+<div class="bg-[#1A1B1F] pane-border p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Throughput</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">12.4 Gbps</span>
+</div>
+<div class="bg-[#1A1B1F] pane-border p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Flows/sec</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">45,120</span>
+</div>
+<div class="bg-[#1A1B1F] pane-border p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Packets/sec</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">1.2M</span>
+</div>
+<div class="bg-[#1A1B1F] pane-border p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Bytes/sec</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">1.5 GB</span>
+</div>
+<div class="bg-[#1A1B1F] pane-border p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Unique Src/Dst</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">8,932 / 12,041</span>
+</div>
+</div>
+<!-- Chart Section -->
+<div class="bg-[#1A1B1F] pane-border mb-gutter">
+<div class="p-4 border-b border-[#2A2B30]">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase">Real-Time Traffic Volume</h2>
+</div>
+<div class="h-64 p-4 relative">
+<!-- Placeholder for Chart -->
+<div class="absolute inset-0 flex items-center justify-center opacity-50">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<!-- Grid lines -->
+<line stroke="#2A2B30" stroke-width="0.5" x1="0" x2="100" y1="10" y2="10"></line>
+<line stroke="#2A2B30" stroke-width="0.5" x1="0" x2="100" y1="20" y2="20"></line>
+<line stroke="#2A2B30" stroke-width="0.5" x1="0" x2="100" y1="30" y2="30"></line>
+<!-- Data line -->
+<polyline fill="none" points="0,35 10,32 20,28 30,34 40,20 50,25 60,15 70,22 80,10 90,18 100,8" stroke="#e5e2e1" stroke-width="1.5"></polyline>
+</svg>
+</div>
+</div>
+</div>
+<!-- Table Section -->
+<div class="bg-[#1A1B1F] pane-border">
+<div class="p-4 border-b border-[#2A2B30]">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase">Live Flow Intercept</h2>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#2A2B30] bg-[#151619]">
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase">Timestamp</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase">Source</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase">Destination</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase">Protocol</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase">Ports (S/D)</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Packets</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Bytes</th>
+<th class="p-3 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-data-value text-data-value">
+<tr class="border-b border-[#2A2B30] hover:bg-[#201f1f] transition-colors">
+<td class="p-3 text-outline">14:32:10.045</td>
+<td class="p-3">192.168.1.45</td>
+<td class="p-3">10.0.0.100</td>
+<td class="p-3 text-outline">TCP</td>
+<td class="p-3">54322 / 443</td>
+<td class="p-3 text-right">12</td>
+<td class="p-3 text-right">1,024</td>
+<td class="p-3 text-right status-normal font-bold">NORMAL</td>
+</tr>
+<tr class="border-b border-[#2A2B30] hover:bg-[#201f1f] transition-colors bg-[#201f1f] border-l-4 border-l-[#d4a373]">
+<td class="p-3 text-outline">14:32:10.112</td>
+<td class="p-3">172.16.5.12</td>
+<td class="p-3">8.8.8.8</td>
+<td class="p-3 text-outline">UDP</td>
+<td class="p-3">12345 / 53</td>
+<td class="p-3 text-right">450</td>
+<td class="p-3 text-right">45,000</td>
+<td class="p-3 text-right status-suspicious font-bold">SUSPICIOUS</td>
+</tr>
+<tr class="border-b border-[#2A2B30] hover:bg-[#201f1f] transition-colors">
+<td class="p-3 text-outline">14:32:10.201</td>
+<td class="p-3">10.1.1.5</td>
+<td class="p-3">192.168.2.20</td>
+<td class="p-3 text-outline">TCP</td>
+<td class="p-3">49152 / 80</td>
+<td class="p-3 text-right">5</td>
+<td class="p-3 text-right">320</td>
+<td class="p-3 text-right status-normal font-bold">NORMAL</td>
+</tr>
+<tr class="border-b border-[#2A2B30] hover:bg-[#201f1f] transition-colors bg-[#201f1f] border-l-4 border-l-[#cc7a80]">
+<td class="p-3 text-outline">14:32:10.500</td>
+<td class="p-3">45.22.100.1</td>
+<td class="p-3">10.0.0.50</td>
+<td class="p-3 text-outline">ICMP</td>
+<td class="p-3">- / -</td>
+<td class="p-3 text-right">10,000</td>
+<td class="p-3 text-right">1,500,000</td>
+<td class="p-3 text-right status-threat font-bold">THREAT</td>
+</tr>
+<tr class="border-b border-[#2A2B30] hover:bg-[#201f1f] transition-colors">
+<td class="p-3 text-outline">14:32:10.888</td>
+<td class="p-3">192.168.1.10</td>
+<td class="p-3">192.168.1.1</td>
+<td class="p-3 text-outline">UDP</td>
+<td class="p-3">68 / 67</td>
+<td class="p-3 text-right">2</td>
+<td class="p-3 text-right">600</td>
+<td class="p-3 text-right status-normal font-bold">NORMAL</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</body></html>

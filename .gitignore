@@ -1,0 +1,64 @@
+# ==============================================================================
+# UNIGUARD AI (SIH26145) - Root Git Ignore Configuration
+# ==============================================================================
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment & Secrets (CRITICAL: NEVER COMMIT SECRETS)
+.env
+.env.local
+.env.*.local
+*.env
+*.env.*
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# Datasets & Large Raw PCAP Captures
+backend/data/raw/
+backend/data/processed/
+backend/data/*.csv
+backend/data/*.parquet
+backend/data/*.pcap
+backend/data/*.pcapng
+*.pcap
+*.pcapng
+!backend/tests/fixtures/*.pcap
+
+# Node / Frontend Build
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+*.local
+
+# Python / Backend Virtual Environments & Cache
+backend/.venv/
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Logs & Databases
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.sqlite3
+*.db
+scratch/

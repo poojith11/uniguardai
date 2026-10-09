@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- STITCH_THREEJS_START:ANIMATION_30 class="fixed inset-0 w-full h-full bg-transparent" -->
+<div class="fixed inset-0 w-full h-full bg-transparent" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_30" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_30');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const container = document.getElementById('threejs-container');
+const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+camera.position.z = 20;
+
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+// Lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+scene.add(ambientLight);
+const pointLight = new THREE.PointLight(0xffffff, 0.5);
+pointLight.position.set(10, 10, 10);
+scene.add(pointLight);
+
+// One-way path geometry
+const pathLength = 15;
+const pathWidth = 0.05;
+const pathGeometry = new THREE.BoxGeometry(pathLength, pathWidth, pathWidth);
+const pathMaterial = new THREE.MeshPhongMaterial({ color: 0x6B6B6B, transparent: true, opacity: 0.3 });
+const pathLine = new THREE.Mesh(pathGeometry, pathMaterial);
+scene.add(pathLine);
+
+// Nodes (Monochrome boxes)
+const nodeSize = 1;
+const nodeGeo = new THREE.BoxGeometry(nodeSize, nodeSize, nodeSize);
+const nodeMat = new THREE.MeshPhongMaterial({ color: 0x111111 });
+
+const startNode = new THREE.Mesh(nodeGeo, nodeMat);
+startNode.position.x = -pathLength / 2;
+scene.add(startNode);
+
+const endNode = new THREE.Mesh(nodeGeo, nodeMat);
+endNode.position.x = pathLength / 2;
+scene.add(endNode);
+
+// Particles (Unidirectional movement)
+const particles = [];
+const particleCount = 20;
+const particleGeo = new THREE.SphereGeometry(0.1, 8, 8);
+const particleMat = new THREE.MeshPhongMaterial({ color: 0x111111 });
+
+for (let i = 0; i < particleCount; i++) {
+    const p = new THREE.Mesh(particleGeo, particleMat);
+    p.position.x = (Math.random() - 0.5) * pathLength;
+    p.speed = 0.05 + Math.random() * 0.05;
+    scene.add(p);
+    particles.push(p);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+});
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    particles.forEach(p => {
+        p.position.x += p.speed;
+        if (p.position.x > pathLength / 2) {
+            p.position.x = -pathLength / 2;
+        }
+    });
+
+    startNode.rotation.y += 0.01;
+    endNode.rotation.y += 0.01;
+    
+    renderer.render(scene, camera);
+}
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_30 -->
+</body>
+</html>

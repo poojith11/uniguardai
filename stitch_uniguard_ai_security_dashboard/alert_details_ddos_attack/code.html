@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNIGUARD AI - Alert Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#930013",
+                      "on-error-container": "#ffdad6",
+                      "on-background": "#d4e4fa",
+                      "surface-container-highest": "#273647",
+                      "surface-bright": "#2c3a4c",
+                      "surface-container-lowest": "#010f1f",
+                      "tertiary": "#ffe7e5",
+                      "on-secondary-container": "#00311f",
+                      "surface-dim": "#051424",
+                      "error": "#ffb4ab",
+                      "surface-container-high": "#1c2b3c",
+                      "on-error": "#690005",
+                      "tertiary-fixed-dim": "#ffb3ad",
+                      "on-surface-variant": "#bac9cc",
+                      "on-surface": "#d4e4fa",
+                      "primary-fixed-dim": "#00daf3",
+                      "surface-container-low": "#0d1c2d",
+                      "inverse-primary": "#006875",
+                      "on-primary": "#00363d",
+                      "surface-container": "#122131",
+                      "on-primary-fixed": "#001f24",
+                      "on-tertiary": "#68000a",
+                      "tertiary-fixed": "#ffdad7",
+                      "inverse-on-surface": "#233143",
+                      "surface": "#051424",
+                      "primary": "#c3f5ff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "inverse-surface": "#d4e4fa",
+                      "on-tertiary-container": "#b1121f",
+                      "on-primary-container": "#00626e",
+                      "background": "#051424",
+                      "surface-variant": "#273647",
+                      "secondary": "#4edea3",
+                      "on-secondary": "#003824",
+                      "on-secondary-fixed": "#002113",
+                      "secondary-container": "#00a572",
+                      "on-tertiary-fixed": "#410004",
+                      "secondary-fixed-dim": "#4edea3",
+                      "secondary-fixed": "#6ffbbe",
+                      "tertiary-container": "#ffc1bc",
+                      "on-primary-fixed-variant": "#004f58",
+                      "primary-container": "#00e5ff",
+                      "outline-variant": "#3b494c",
+                      "error-container": "#93000a",
+                      "outline": "#849396",
+                      "primary-fixed": "#9cf0ff",
+                      "surface-tint": "#00daf3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-padding": "24px",
+                      "unit": "4px",
+                      "component-gap": "12px",
+                      "gutter": "16px",
+                      "section-margin": "32px"
+              },
+              "fontFamily": {
+                      "body-base": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.surface-container-lowest');
+            color: theme('colors.on-surface');
+        }
+        .ghost-border {
+            border: 1px solid theme('colors.outline-variant');
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+        .critical-glow {
+            text-shadow: 0 0 10px rgba(255, 180, 171, 0.5);
+        }
+        .box-glow {
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="font-body-base bg-surface-container-lowest text-on-surface antialiased overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-container-padding z-50">
+<div class="px-container-padding mb-section-margin">
+<h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-primary">UNIGUARD AI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-unit uppercase">Institutional Grade</p>
+</div>
+<ul class="flex flex-col gap-unit flex-grow px-gutter">
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">dashboard</span> Overview</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">router</span> Live Traffic</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">security</span> Threat Detection</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-primary font-bold border-r-2 border-primary hover:bg-surface-container-highest transition-colors opacity-80 duration-150" href="#"><span class="material-symbols-outlined">notifications_active</span> Alerts</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">inventory_2</span> Evidence</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">analytics</span> Traffic Analytics</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">psychology</span> Detection Models</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">assessment</span> Reports</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">health_and_safety</span> System Health</a></li>
+<li><a class="flex items-center gap-component-gap px-gutter py-2 rounded text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors" href="#"><span class="material-symbols-outlined">settings</span> Settings</a></li>
+</ul>
+<div class="px-container-padding mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container font-label-caps text-label-caps py-3 rounded ghost-border hover:bg-primary-fixed transition-colors">GENERATE REPORT</button>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface fixed top-0 right-0 left-64 h-16 border-b border-outline-variant flex justify-between items-center px-gutter w-[calc(100%-16rem)] z-40">
+<div class="flex items-center gap-container-padding">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary">UNIGUARD AI</span>
+<nav class="hidden md:flex gap-gutter">
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors" href="#">PASSIVE MONITORING</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors" href="#">ONE-WAY TRAFFIC ONLY</a>
+</nav>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">schedule</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">update</span></button>
+</div>
+<span class="text-on-surface-variant font-label-caps text-label-caps px-2 py-1 ghost-border rounded">READ-ONLY</span>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 rounded font-bold">STREAM ACTIVE</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant ghost-border overflow-hidden">
+<img alt="Operator Profile" class="object-cover w-full h-full" data-alt="A highly detailed close-up portrait of a cybersecurity operator in a dimly lit, high-tech control room setting. Cool cyan lighting reflects softly on their face, indicating active monitoring. The style is hyper-realistic, institutional, and serious, fitting a secure government-grade facility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuwnuALu3wWWIWd_-ts6PhyJpMKwCEjiIk9ON4CDIvtenk-LgD7X1bdGTkEd8fp1mvR0ksrh_ybLV8M9nd3kDWV97pDjKa_84dYaeD2hsd8AOHh5s29Y2U8MPH3_JZgOe9iVClWfIkY-BaUkQi6En_bAtdtidJ-vos7qI43LpnaRhBisVLzNvH9TeRKOzip_gf5ODqAzTz-a7cJ6wuCZfJRdOZT26Bebcwi9RaNLBtvY2WJLHCFf1r9g"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 p-container-padding h-[calc(100vh-4rem)] overflow-y-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-container-padding max-w-[1440px] mx-auto">
+<!-- Header Section -->
+<div class="col-span-12 flex flex-col md:flex-row justify-between items-start md:items-end mb-section-margin gap-gutter">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="w-3 h-3 rounded-full bg-error animate-pulse"></span>
+<span class="font-data-mono text-data-mono text-error critical-glow">ALERT_ID: UG-293-DDOS</span>
+<span class="px-2 py-0.5 rounded ghost-border bg-surface-variant text-on-surface-variant font-label-caps text-label-caps">INVESTIGATING</span>
+</div>
+<h2 class="font-display-lg text-display-lg font-bold text-on-surface uppercase tracking-tight">POSSIBLE DDoS ATTACK</h2>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 rounded ghost-border text-primary font-label-caps text-label-caps hover:bg-surface-container-high transition-colors">MARK INVESTIGATING</button>
+<button class="px-4 py-2 rounded bg-primary text-on-primary font-label-caps text-label-caps font-bold hover:bg-primary-fixed transition-colors">RESOLVE ALERT</button>
+</div>
+</div>
+<!-- Left Column: Context & Evidence -->
+<div class="col-span-12 md:col-span-8 flex flex-col gap-container-padding">
+<!-- Why did AI flag this? (Explainable AI) -->
+<div class="bg-surface-container rounded-lg p-container-padding ghost-border box-glow">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-gutter uppercase border-b border-outline-variant pb-2">Why Did AI Flag This?</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<div>
+<p class="font-body-base text-body-base font-semibold">Anomalous Flow Rate Spike</p>
+<p class="font-data-mono text-data-mono text-on-surface-variant text-sm mt-1">Traffic volume exceeded historical baseline by +450% within a 30-second window.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<div>
+<p class="font-body-base text-body-base font-semibold">Distributed Source Pattern</p>
+<p class="font-data-mono text-data-mono text-on-surface-variant text-sm mt-1">Packets originating from 12,409 distinct IPs across multiple subnets.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-1">warning</span>
+<div>
+<p class="font-body-base text-body-base font-semibold text-error">Behavioral Deviation (SYN Flood Signature)</p>
+<p class="font-data-mono text-data-mono text-on-surface-variant text-sm mt-1">High ratio of SYN packets without corresponding ACK completions. Model confidence: 98.2%.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Technical Comparison Chart Placeholder -->
+<div class="bg-surface-container rounded-lg p-container-padding ghost-border">
+<div class="flex justify-between items-center mb-gutter border-b border-outline-variant pb-2">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase">Traffic Deviation: Normal vs Observed</h3>
+<div class="flex gap-4">
+<span class="flex items-center gap-1 font-label-caps text-label-caps text-on-surface-variant"><div class="w-2 h-2 rounded-full bg-outline"></div> Baseline</span>
+<span class="flex items-center gap-1 font-label-caps text-label-caps text-primary"><div class="w-2 h-2 rounded-full bg-primary"></div> Observed</span>
+</div>
+</div>
+<div class="h-64 w-full bg-surface-container-high rounded relative overflow-hidden ghost-border flex items-end px-4 gap-2 pb-4">
+<!-- Simulated Chart -->
+<div class="w-1/12 h-[20%] bg-outline opacity-50 rounded-t"></div>
+<div class="w-1/12 h-[25%] bg-outline opacity-50 rounded-t"></div>
+<div class="w-1/12 h-[22%] bg-outline opacity-50 rounded-t"></div>
+<div class="w-1/12 h-[80%] bg-primary rounded-t shadow-[0_0_15px_rgba(0,229,255,0.5)]"></div>
+<div class="w-1/12 h-[95%] bg-error rounded-t shadow-[0_0_15px_rgba(255,180,171,0.5)]"></div>
+<div class="w-1/12 h-[90%] bg-error rounded-t shadow-[0_0_15px_rgba(255,180,171,0.5)]"></div>
+<div class="w-1/12 h-[85%] bg-primary rounded-t shadow-[0_0_15px_rgba(0,229,255,0.5)]"></div>
+<div class="w-1/12 h-[20%] bg-outline opacity-50 rounded-t"></div>
+<!-- Overlay data -->
+<div class="absolute top-4 right-4 bg-surface-dim p-2 rounded ghost-border">
+<p class="font-data-mono text-data-mono text-error text-sm">PEAK: 4.2 Gbps</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Stats & Actions -->
+<div class="col-span-12 md:col-span-4 flex flex-col gap-container-padding">
+<!-- Severity & Confidence -->
+<div class="bg-surface-container rounded-lg p-container-padding ghost-border">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-gutter uppercase border-b border-outline-variant pb-2">Analysis Metrics</h3>
+<div class="mb-6">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Severity</p>
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-headline-md text-error critical-glow font-bold">CRITICAL</span>
+<div class="flex-grow h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="w-full h-full bg-error"></div>
+</div>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">AI Confidence</p>
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-headline-md text-primary text-glow font-bold">96%</span>
+<div class="flex-grow h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="w-[96%] h-full bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Key Data Points -->
+<div class="bg-surface-container rounded-lg p-container-padding ghost-border flex-grow">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-gutter uppercase border-b border-outline-variant pb-2">Snapshot Data</h3>
+<ul class="space-y-4">
+<li class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="font-body-base text-body-base text-on-surface-variant">Source Count</span>
+<span class="font-data-mono text-data-mono text-primary">12,409 IPs</span>
+</li>
+<li class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="font-body-base text-body-base text-on-surface-variant">Destination Target</span>
+<span class="font-data-mono text-data-mono text-on-surface">gw-core-01</span>
+</li>
+<li class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="font-body-base text-body-base text-on-surface-variant">Packet Rate</span>
+<span class="font-data-mono text-data-mono text-error">1.2M pps</span>
+</li>
+<li class="flex justify-between items-center pb-2">
+<span class="font-body-base text-body-base text-on-surface-variant">Duration</span>
+<span class="font-data-mono text-data-mono text-on-surface">00:04:12 (Ongoing)</span>
+</li>
+</ul>
+</div>
+<!-- Contextual Actions -->
+<div class="grid grid-cols-1 gap-2">
+<button class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded ghost-border bg-surface-container-high hover:bg-surface-variant transition-colors text-on-surface font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-sm">visibility</span> VIEW TRAFFIC
+                    </button>
+<button class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded ghost-border bg-surface-container-high hover:bg-surface-variant transition-colors text-on-surface font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-sm">timeline</span> VIEW TIMELINE
+                    </button>
+<button class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded ghost-border bg-surface-container-high hover:bg-surface-variant transition-colors text-primary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-sm">download</span> EXPORT EVIDENCE
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

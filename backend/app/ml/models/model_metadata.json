@@ -1,0 +1,251 @@
+{
+  "model_name": "uniguard-dual-tier-detector",
+  "model_version": "1.0.0",
+  "feature_schema_version": "2.0.0",
+  "feature_count": 27,
+  "features": [
+    "duration_seconds",
+    "packet_count",
+    "byte_count",
+    "packets_per_second",
+    "bytes_per_second",
+    "mean_packet_size",
+    "std_packet_size",
+    "min_packet_size",
+    "max_packet_size",
+    "packet_size_entropy",
+    "mean_iat_seconds",
+    "std_iat_seconds",
+    "min_iat_seconds",
+    "max_iat_seconds",
+    "iat_jitter_seconds",
+    "burstiness_ratio",
+    "syn_count",
+    "ack_count",
+    "fin_count",
+    "rst_count",
+    "psh_count",
+    "urg_count",
+    "syn_ratio",
+    "ack_ratio",
+    "rst_ratio",
+    "is_well_known_dst_port",
+    "is_ephemeral_src_port"
+  ],
+  "supported_classes": [
+    "BENIGN",
+    "DDOS",
+    "RECON_SCAN",
+    "C2_BEACONING"
+  ],
+  "unsupported_classes": [
+    "EXFILTRATION"
+  ],
+  "primary_dataset": "NF-CSE-CIC-IDS2018-v2 (Benchmark Corpus)",
+  "random_seed": 42,
+  "training_timestamp": "2026-08-27T10:23:20.437713+00:00",
+  "supervised_algorithm": "RandomForestClassifier",
+  "anomaly_algorithm": "IsolationForest",
+  "supervised_hyperparameters": {
+    "n_estimators": 100,
+    "max_depth": 15,
+    "class_weight": "balanced",
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "anomaly_hyperparameters": {
+    "n_estimators": 100,
+    "max_samples": "auto",
+    "contamination": 0.02,
+    "random_state": 42
+  },
+  "validation_metrics": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "inference_latency_ms": 0.00995,
+    "confusion_matrix": [
+      [
+        1050,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        90,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        180,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        180
+      ]
+    ],
+    "per_class_report": {
+      "BENIGN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1050.0
+      },
+      "C2_BEACONING": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 90.0
+      },
+      "DDOS": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 180.0
+      },
+      "RECON_SCAN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 180.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1500.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1500.0
+      }
+    }
+  },
+  "test_metrics": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "inference_latency_ms": 0.00882,
+    "confusion_matrix": [
+      [
+        1050,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        90,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        180,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        180
+      ]
+    ],
+    "per_class_report": {
+      "BENIGN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1050.0
+      },
+      "C2_BEACONING": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 90.0
+      },
+      "DDOS": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 180.0
+      },
+      "RECON_SCAN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 180.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1500.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1500.0
+      }
+    }
+  },
+  "anomaly_baseline_metrics": {
+    "score_mean": 0.060352816467888745,
+    "score_std": 0.10060953611537692,
+    "score_min": -0.15642222143057172,
+    "score_max": 0.20002126422770528,
+    "false_positive_rate_benign": 0.0229,
+    "threat_detection_recall": 0.9978,
+    "inference_latency_ms_per_flow": 0.00822
+  },
+  "feature_importance": {
+    "std_packet_size": 0.09352,
+    "packet_size_entropy": 0.09186,
+    "packet_count": 0.08715,
+    "min_iat_seconds": 0.07683,
+    "rst_ratio": 0.07034,
+    "byte_count": 0.06976,
+    "syn_count": 0.06305,
+    "burstiness_ratio": 0.05983,
+    "ack_ratio": 0.04765,
+    "max_packet_size": 0.04666,
+    "rst_count": 0.04666,
+    "iat_jitter_seconds": 0.04655,
+    "std_iat_seconds": 0.03952,
+    "syn_ratio": 0.03003,
+    "bytes_per_second": 0.02683,
+    "psh_count": 0.02667,
+    "mean_iat_seconds": 0.01674,
+    "packets_per_second": 0.01646,
+    "max_iat_seconds": 0.01514,
+    "mean_packet_size": 0.01368,
+    "duration_seconds": 0.00997,
+    "ack_count": 0.00336,
+    "fin_count": 0.00174,
+    "min_packet_size": 0.0,
+    "urg_count": 0.0,
+    "is_well_known_dst_port": 0.0,
+    "is_ephemeral_src_port": 0.0
+  },
+  "scientific_limitations": [
+    "EXFILTRATION class is unsupported due to absence of verified ground-truth samples in standard NF-CSE-CIC-IDS2018-v2.",
+    "C2_BEACONING is trained on Ares HTTP bot check-in patterns; advanced DNS/mTLS tunneling requires supplementary raw PCAP extraction.",
+    "Isolation Forest decision scores represent relative distance to the normal hyperplane and must not be interpreted as calibrated probabilities."
+  ]
+}

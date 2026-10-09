@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNIGUARD AI - Traffic Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#930013",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d4e4fa",
+                        "surface-container-highest": "#273647",
+                        "surface-bright": "#2c3a4c",
+                        "surface-container-lowest": "#010f1f",
+                        "tertiary": "#ffe7e5",
+                        "on-secondary-container": "#00311f",
+                        "surface-dim": "#051424",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#1c2b3c",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "on-surface-variant": "#bac9cc",
+                        "on-surface": "#d4e4fa",
+                        "primary-fixed-dim": "#00daf3",
+                        "surface-container-low": "#0d1c2d",
+                        "inverse-primary": "#006875",
+                        "on-primary": "#00363d",
+                        "surface-container": "#122131",
+                        "on-primary-fixed": "#001f24",
+                        "on-tertiary": "#68000a",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-on-surface": "#233143",
+                        "surface": "#051424",
+                        "primary": "#c3f5ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "inverse-surface": "#d4e4fa",
+                        "on-tertiary-container": "#b1121f",
+                        "on-primary-container": "#00626e",
+                        "background": "#051424",
+                        "surface-variant": "#273647",
+                        "secondary": "#4edea3",
+                        "on-secondary": "#003824",
+                        "on-secondary-fixed": "#002113",
+                        "secondary-container": "#00a572",
+                        "on-tertiary-fixed": "#410004",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-container": "#ffc1bc",
+                        "on-primary-fixed-variant": "#004f58",
+                        "primary-container": "#00e5ff",
+                        "outline-variant": "#3b494c",
+                        "error-container": "#93000a",
+                        "outline": "#849396",
+                        "primary-fixed": "#9cf0ff",
+                        "surface-tint": "#00daf3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "component-gap": "12px",
+                        "gutter": "16px",
+                        "section-margin": "32px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-base": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-surface'); }
+        .ghost-border { border: 1px solid theme('colors.outline-variant'); }
+        .active-glow { box-shadow: 0 0 15px rgba(0, 229, 255, 0.15); }
+        .text-ruby-red { color: #ff4d4d; } /* Custom for critical status */
+        .chart-bg { background: linear-gradient(180deg, rgba(0, 229, 255, 0.1) 0%, rgba(5, 20, 36, 0) 100%); }
+    </style>
+</head>
+<body class="antialiased overflow-hidden">
+<!-- SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-container-padding z-50">
+<div class="px-gutter mb-8">
+<h1 class="font-display-lg text-display-lg font-bold text-primary">UNIGUARD AI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Institutional Grade</p>
+</div>
+<div class="flex-1 overflow-y-auto px-unit space-y-1">
+<!-- Tabs -->
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">router</span>
+<span>Live Traffic</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">security</span>
+<span>Threat Detection</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">notifications_active</span>
+<span>Alerts</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">inventory_2</span>
+<span>Evidence</span>
+</a>
+<!-- ACTIVE TAB -->
+<a class="flex items-center px-3 py-2 text-primary font-bold border-r-2 border-primary bg-surface-container-highest opacity-100 duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span>Traffic Analytics</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">psychology</span>
+<span>Detection Models</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">assessment</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">health_and_safety</span>
+<span>System Health</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors opacity-80 duration-150 group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-primary">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="px-gutter mt-auto pt-6">
+<button class="w-full bg-primary-container text-on-primary-fixed py-3 rounded font-label-caps text-label-caps hover:bg-primary-fixed transition-colors">
+                GENERATE REPORT
+            </button>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter w-[calc(100%-16rem)] z-40">
+<div class="flex items-center space-x-6">
+<!-- Navigation Links -->
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors" href="#">PASSIVE MONITORING</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors" href="#">ONE-WAY TRAFFIC ONLY</a>
+</div>
+<div class="flex items-center space-x-6">
+<!-- Search Bar (on_right logic implied by layout) -->
+<div class="relative ghost-border rounded bg-surface-container-lowest focus-within:border-primary focus-within:border transition-all">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="bg-transparent border-none text-body-base font-body-base text-on-surface py-1 pl-9 pr-3 w-48 focus:ring-0 placeholder-on-surface-variant" placeholder="Search analytics..." type="text"/>
+</div>
+<div class="flex items-center space-x-3">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">schedule</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">update</span></button>
+</div>
+<div class="flex items-center space-x-3 border-l border-outline-variant pl-6">
+<span class="font-label-caps text-label-caps text-secondary flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                    STREAM ACTIVE
+                </span>
+<span class="font-label-caps text-label-caps text-on-surface-variant ghost-border px-2 py-1 rounded">READ-ONLY</span>
+<img class="w-8 h-8 rounded-full ghost-border object-cover ml-2" data-alt="A macro shot of a sleek, dark metallic AI core processing unit glowing with subtle cyan light, in a pristine server room setting, cinematic lighting, hyper-realistic, dark mode UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN0GgI9rpG5stJj0bJF1Rb6VNLolbLLxI4Kv4FdjOwgh4eGwswd85CLQfTG9_zBSVwn9QANwJFDkctFjbbwW6lDXCXhV-jv9wrkp5nIoZdy1MsyaixnKlwwtwqV4gObvvnFcISdrusXYXEXQ2L6BYNBt0tnErd0Ptrz6LMLa0niNVm6x9Z5WOUtNb8cSEHVTtDw5GHgZGbL6R_WqGfVGJpmx4uwqXs5pHQLbt4tG3G_GpftDWSWM3lvA"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 p-container-padding h-[calc(100vh-4rem)] overflow-y-auto bg-background">
+<!-- Header & Filters -->
+<div class="flex justify-between items-end mb-section-margin">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Traffic Analytics</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Deep packet inspection and behavioral analysis.</p>
+</div>
+<div class="flex space-x-2 bg-surface-container-low ghost-border rounded p-1">
+<button class="px-3 py-1 font-data-mono text-data-mono text-on-surface-variant hover:text-primary rounded hover:bg-surface-container-highest transition-colors">1h</button>
+<button class="px-3 py-1 font-data-mono text-data-mono text-on-surface-variant hover:text-primary rounded hover:bg-surface-container-highest transition-colors">6h</button>
+<button class="px-3 py-1 font-data-mono text-data-mono text-primary bg-surface-container-highest rounded active-glow">24h</button>
+<button class="px-3 py-1 font-data-mono text-data-mono text-on-surface-variant hover:text-primary rounded hover:bg-surface-container-highest transition-colors">7d</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-component-gap">
+<!-- Protocol Distribution (Pie approx) -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-high ghost-border rounded-lg p-gutter hover:bg-surface-bright transition-colors flex flex-col h-72">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-caps text-label-caps text-on-surface">PROTOCOL DIST</h3>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">L4-L7</span>
+</div>
+<div class="flex-1 flex items-center justify-center relative">
+<!-- Abstract representation of a donut chart -->
+<div class="w-40 h-40 rounded-full border-[12px] border-surface-container-lowest relative">
+<div class="absolute inset-[-12px] rounded-full border-[12px] border-primary" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 50%);"></div>
+<div class="absolute inset-[-12px] rounded-full border-[12px] border-secondary" style="clip-path: polygon(100% 100%, 0 100%, 0 50%, 50% 50%);"></div>
+<div class="absolute inset-[-12px] rounded-full border-[12px] border-tertiary-fixed" style="clip-path: polygon(0 50%, 0 0, 50% 50%);"></div>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="font-data-mono text-data-mono text-primary">TCP</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant">68%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Traffic Volume (Area Chart approx) -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-high ghost-border rounded-lg p-gutter hover:bg-surface-bright transition-colors flex flex-col h-72">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-caps text-label-caps text-on-surface">TRAFFIC VOLUME (Gbps)</h3>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">ID: VLM-992</span>
+</div>
+<div class="flex-1 w-full relative chart-bg rounded overflow-hidden">
+<!-- CSS drawing for area chart -->
+<svg class="absolute bottom-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0 100 L0 60 Q 15 80, 30 50 T 60 40 T 80 60 T 100 30 L100 100 Z" fill="rgba(0, 229, 255, 0.15)"></path>
+<path d="M0 60 Q 15 80, 30 50 T 60 40 T 80 60 T 100 30" fill="none" stroke="theme('colors.primary')" stroke-width="1.5"></path>
+</svg>
+<div class="absolute top-2 left-2 bg-surface-container-lowest ghost-border rounded px-2 py-1">
+<span class="font-data-mono text-data-mono text-primary text-[12px]">Peak: 42.8 Gbps</span>
+</div>
+</div>
+</div>
+<!-- Tech Data Cards Row -->
+<div class="col-span-12 grid grid-cols-3 gap-component-gap">
+<!-- Connection Frequency -->
+<div class="bg-surface-container-high ghost-border rounded-lg p-gutter flex flex-col hover:bg-surface-bright transition-colors">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-2">CONN FREQUENCY</h4>
+<div class="flex items-end justify-between">
+<span class="font-data-mono text-[28px] text-on-surface">1.2<span class="text-[14px] text-on-surface-variant">M/s</span></span>
+<span class="font-data-mono text-data-mono text-secondary flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">arrow_downward</span> 4.2%
+                        </span>
+</div>
+</div>
+<!-- Flow Duration -->
+<div class="bg-surface-container-high ghost-border rounded-lg p-gutter flex flex-col hover:bg-surface-bright transition-colors">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-2">AVG FLOW DURATION</h4>
+<div class="flex items-end justify-between">
+<span class="font-data-mono text-[28px] text-on-surface">432<span class="text-[14px] text-on-surface-variant">ms</span></span>
+<span class="font-data-mono text-data-mono text-error flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">arrow_upward</span> 12.1%
+                        </span>
+</div>
+</div>
+<!-- Byte Rates -->
+<div class="bg-surface-container-high ghost-border rounded-lg p-gutter flex flex-col hover:bg-surface-bright transition-colors">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-2">INGRESS BYTE RATE</h4>
+<div class="flex items-end justify-between">
+<span class="font-data-mono text-[28px] text-on-surface">84.5<span class="text-[14px] text-on-surface-variant">GB/s</span></span>
+<span class="font-data-mono text-data-mono text-secondary flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">arrow_downward</span> 1.8%
+                        </span>
+</div>
+</div>
+</div>
+<!-- Source Distribution Map (using placeholder image) -->
+<div class="col-span-12 md:col-span-6 bg-surface-container-high ghost-border rounded-lg p-gutter hover:bg-surface-bright transition-colors h-80 flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-caps text-label-caps text-on-surface">SOURCE DISTRIBUTION (Geo)</h3>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">GLOBAL</span>
+</div>
+<div class="flex-1 w-full rounded ghost-border overflow-hidden relative" data-location="Global Heatmap" style="">
+<div class="bg-cover bg-center w-full h-full absolute inset-0 opacity-60 mix-blend-screen" data-alt="A stylized, dark mode digital world map showing network traffic routes. Glowing cyan and bright green lines arc across the continents, representing data flows. Dark navy blue background, highly technical, cyber intelligence aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7JF6RMAGr4P78dNj_EjMo9i-whc_yPWa658Z3FjqqoFbuL5PlWrHDwYWzkuR51wD9THXit-W1vMzLqFT2twoDbzW5BVXG-uEBcSlBvV6wx5yXNUtVK5lpEpfQIvTkusBj1AX6TydSJMsX0QdBxwbb0VknFM3QD30N7hFxRtiKBKIZllHTCHrYyA4j2vR02h2LmGnasBUpjel5P5wBzRq88MhJ_i3UDOdcQ0ot8fH8YaiFt6XbFILL2A')"></div>
+<div class="absolute bottom-2 right-2 bg-surface-container-lowest/80 backdrop-blur ghost-border p-2 rounded">
+<div class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full bg-error"></div><span class="font-data-mono text-[10px] text-on-surface">High Density</span></div>
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-primary"></div><span class="font-data-mono text-[10px] text-on-surface">Normal</span></div>
+</div>
+</div>
+</div>
+<!-- Traffic Entropy -->
+<div class="col-span-12 md:col-span-6 bg-surface-container-high ghost-border rounded-lg p-gutter hover:bg-surface-bright transition-colors h-80 flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-caps text-label-caps text-on-surface">TRAFFIC ENTROPY SCORE</h3>
+<span class="font-data-mono text-data-mono text-error text-[10px] flex items-center gap-1"><span class="w-2 h-2 bg-error rounded-full animate-pulse"></span> ANOMALY DETECTED</span>
+</div>
+<!-- Simulated Table/Log for Entropy -->
+<div class="flex-1 overflow-hidden flex flex-col gap-1">
+<div class="grid grid-cols-4 px-2 py-1 border-b border-outline-variant mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant">TIMESTAMP</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant col-span-2">NODE VECTOR</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant text-right">SCORE</span>
+</div>
+<div class="grid grid-cols-4 px-2 py-1.5 hover:bg-surface-container-lowest rounded cursor-pointer group">
+<span class="font-data-mono text-[12px] text-on-surface-variant group-hover:text-primary transition-colors">14:02:11</span>
+<span class="font-data-mono text-[12px] text-on-surface col-span-2 truncate">v.node-alpha.int/req</span>
+<span class="font-data-mono text-[12px] text-secondary text-right">0.82</span>
+</div>
+<div class="grid grid-cols-4 px-2 py-1.5 bg-error-container/20 border border-error/30 rounded cursor-pointer">
+<span class="font-data-mono text-[12px] text-error">14:02:08</span>
+<span class="font-data-mono text-[12px] text-error col-span-2 truncate">v.node-ext.gw/fwd</span>
+<span class="font-data-mono text-[12px] text-error text-right font-bold">4.91</span>
+</div>
+<div class="grid grid-cols-4 px-2 py-1.5 hover:bg-surface-container-lowest rounded cursor-pointer group">
+<span class="font-data-mono text-[12px] text-on-surface-variant group-hover:text-primary transition-colors">14:02:05</span>
+<span class="font-data-mono text-[12px] text-on-surface col-span-2 truncate">v.sys.core/sync</span>
+<span class="font-data-mono text-[12px] text-secondary text-right">0.21</span>
+</div>
+<div class="grid grid-cols-4 px-2 py-1.5 hover:bg-surface-container-lowest rounded cursor-pointer group">
+<span class="font-data-mono text-[12px] text-on-surface-variant group-hover:text-primary transition-colors">14:02:01</span>
+<span class="font-data-mono text-[12px] text-on-surface col-span-2 truncate">v.sys.core/sync</span>
+<span class="font-data-mono text-[12px] text-secondary text-right">0.20</span>
+</div>
+<div class="mt-auto pt-2 border-t border-outline-variant flex justify-between items-center">
+<span class="font-label-caps text-[10px] text-on-surface-variant">THRESHOLD: 3.5</span>
+<button class="font-label-caps text-[10px] text-primary hover:underline">VIEW FULL LOG</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

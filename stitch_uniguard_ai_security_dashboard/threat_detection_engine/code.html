@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNIGUARD AI - Threat Detection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#930013",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d4e4fa",
+                        "surface-container-highest": "#273647",
+                        "surface-bright": "#2c3a4c",
+                        "surface-container-lowest": "#010f1f",
+                        "tertiary": "#ffe7e5",
+                        "on-secondary-container": "#00311f",
+                        "surface-dim": "#051424",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#1c2b3c",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "on-surface-variant": "#bac9cc",
+                        "on-surface": "#d4e4fa",
+                        "primary-fixed-dim": "#00daf3",
+                        "surface-container-low": "#0d1c2d",
+                        "inverse-primary": "#006875",
+                        "on-primary": "#00363d",
+                        "surface-container": "#122131",
+                        "on-primary-fixed": "#001f24",
+                        "on-tertiary": "#68000a",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-on-surface": "#233143",
+                        "surface": "#051424",
+                        "primary": "#c3f5ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "inverse-surface": "#d4e4fa",
+                        "on-tertiary-container": "#b1121f",
+                        "on-primary-container": "#00626e",
+                        "background": "#051424",
+                        "surface-variant": "#273647",
+                        "secondary": "#4edea3",
+                        "on-secondary": "#003824",
+                        "on-secondary-fixed": "#002113",
+                        "secondary-container": "#00a572",
+                        "on-tertiary-fixed": "#410004",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-container": "#ffc1bc",
+                        "on-primary-fixed-variant": "#004f58",
+                        "primary-container": "#00e5ff",
+                        "outline-variant": "#3b494c",
+                        "error-container": "#93000a",
+                        "outline": "#849396",
+                        "primary-fixed": "#9cf0ff",
+                        "surface-tint": "#00daf3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "component-gap": "12px",
+                        "gutter": "16px",
+                        "section-margin": "32px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-base": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0a0b0d; color: #d4e4fa; }
+        .card-surface { background-color: #16181d; border: 1px solid #2d3139; }
+        .card-hover:hover { background-color: #1f2229; border-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.15); }
+    </style>
+</head>
+<body class="font-body-base text-body-base bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-surface-container-low h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-container-padding z-20">
+<div class="px-container-padding mb-section-margin">
+<h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-primary leading-tight">UNIGUARD AI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Institutional Grade</p>
+</div>
+<nav class="flex-1 overflow-y-auto px-unit">
+<ul class="space-y-1">
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">dashboard</span>Overview</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">router</span>Live Traffic</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-primary font-bold border-r-2 border-primary bg-surface-container-highest opacity-80 duration-150 rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap" style="font-variation-settings: 'FILL' 1;">security</span>Threat Detection</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">notifications_active</span>Alerts</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">inventory_2</span>Evidence</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">analytics</span>Traffic Analytics</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">psychology</span>Detection Models</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">assessment</span>Reports</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">health_and_safety</span>System Health</a></li>
+<li><a class="flex items-center px-gutter py-component-gap text-on-surface-variant font-body-base hover:bg-surface-container-highest transition-colors rounded-DEFAULT" href="#"><span class="material-symbols-outlined mr-component-gap">settings</span>Settings</a></li>
+</ul>
+</nav>
+<div class="px-container-padding mt-auto pt-section-margin">
+<button class="w-full bg-primary-container text-on-primary-container font-label-caps text-label-caps py-component-gap rounded-DEFAULT hover:bg-primary transition-colors flex items-center justify-center font-bold">
+                GENERATE REPORT
+            </button>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface fixed top-0 right-0 left-64 h-16 border-b border-outline-variant flex justify-between items-center px-gutter w-[calc(100%-16rem)] z-10">
+<div class="flex items-center gap-container-padding">
+<span class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors cursor-pointer">PASSIVE MONITORING</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors cursor-pointer">ONE-WAY TRAFFIC ONLY</span>
+</div>
+<div class="flex items-center gap-container-padding">
+<div class="flex items-center gap-unit text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-secondary-fixed">STREAM ACTIVE</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">READ-ONLY</span>
+<div class="flex items-center gap-component-gap text-on-surface-variant">
+<span class="material-symbols-outlined hover:text-primary cursor-pointer transition-colors">schedule</span>
+<span class="material-symbols-outlined hover:text-primary cursor-pointer transition-colors">update</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A macro shot of a sophisticated optical sensor lens reflecting neon blue data streams in a dark, high-tech server room environment. Sharp focus, moody lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnSjc8TYvb7-wYxRKOiD8eiBAkV5-Qa9t7Ja4x4CrKf1gotngbDvAZOktLLNFijKNbqU0zgxCgUjEwH_cio9IbOpLg5DgSaeq_R35dt1BOTYqGsmeYaHAsBQB8lh23zVa_z7v6U3jLfGYf5JUUms4xvMvYqGjQhQwZnAgb5pXgJUZ8ivb3b0v6mHsLI1CNFpsfz_l9514INVMIDPK9OXRa7JdBJNeIxDy5hkR8QBmojUCuwo8ZJNMToQ"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 mt-16 p-container-padding bg-background overflow-y-auto">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-section-margin">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-unit">Threat Detection</h2>
+<p class="font-body-base text-body-base text-on-surface-variant">Real-time passive analysis of network telemetry.</p>
+</div>
+<div class="flex items-center gap-component-gap card-surface px-gutter py-unit rounded-DEFAULT">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ENGINE STATUS</span>
+<div class="flex items-center gap-unit text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-data-mono text-data-mono text-secondary-fixed">RUNNING</span>
+</div>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-container-padding">
+<!-- Detectors Overview -->
+<div class="col-span-12 xl:col-span-8 space-y-container-padding">
+<div class="card-surface p-container-padding rounded-lg">
+<div class="flex justify-between items-center mb-component-gap border-b border-outline-variant pb-unit">
+<h3 class="font-label-caps text-label-caps text-on-surface">ACTIVE DETECTORS</h3>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-xs">MODELS: 6</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-component-gap">
+<!-- Anomaly -->
+<div class="card-surface p-component-gap rounded-DEFAULT card-hover transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-primary">troubleshoot</span>
+<span class="font-data-mono text-data-mono text-xs text-primary">98% CONF</span>
+</div>
+<h4 class="font-body-base text-body-base text-on-surface mb-1">Anomaly</h4>
+<div class="text-xs text-on-surface-variant">Events: <span class="font-data-mono text-on-background">142.5K</span></div>
+</div>
+<!-- DDoS -->
+<div class="card-surface p-component-gap rounded-DEFAULT card-hover transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-primary">flood</span>
+<span class="font-data-mono text-data-mono text-xs text-primary">99% CONF</span>
+</div>
+<h4 class="font-body-base text-body-base text-on-surface mb-1">DDoS</h4>
+<div class="text-xs text-on-surface-variant">Events: <span class="font-data-mono text-on-background">89.2K</span></div>
+</div>
+<!-- Recon -->
+<div class="card-surface p-component-gap rounded-DEFAULT card-hover transition-all cursor-pointer border-error opacity-80">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-error">policy</span>
+<span class="font-data-mono text-data-mono text-xs text-error animate-pulse">ALERT</span>
+</div>
+<h4 class="font-body-base text-body-base text-on-surface mb-1">Reconnaissance</h4>
+<div class="text-xs text-on-surface-variant">Events: <span class="font-data-mono text-on-background">12.1K</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Detections List -->
+<div class="col-span-12 xl:col-span-4">
+<div class="card-surface rounded-lg h-full flex flex-col">
+<div class="p-component-gap border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface">RECENT DETECTIONS</h3>
+</div>
+<div class="flex-1 overflow-y-auto p-component-gap space-y-unit">
+<div class="flex justify-between items-center p-2 hover:bg-surface-container-highest rounded transition-colors cursor-pointer border border-transparent hover:border-outline-variant">
+<div>
+<div class="font-data-mono text-data-mono text-sm text-error">RECON_SCAN_091</div>
+<div class="text-xs text-on-surface-variant">10.0.4.15 → DB_CLUSTER</div>
+</div>
+<div class="text-right">
+<div class="font-data-mono text-data-mono text-sm text-on-surface">94%</div>
+<div class="text-xs text-on-surface-variant">Just now</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

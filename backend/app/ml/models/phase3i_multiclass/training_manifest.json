@@ -1,0 +1,38 @@
+{
+  "phase": "Phase 3I",
+  "timestamp": "2026-08-27T12:46:30.279608+00:00",
+  "training_captures": [
+    "Wed14_Server28",
+    "Wed14_Subnet27",
+    "Fri16_WebServer25",
+    "Fri16_Subnet21",
+    "CTU13_Neris"
+  ],
+  "validation_captures": [
+    "Thu15_Subnet21"
+  ],
+  "unseen_test_captures": [
+    "Wed21_WebServer25",
+    "Wed21_Client62",
+    "Fri02_Client95"
+  ],
+  "classes": [
+    "BENIGN",
+    "DDOS",
+    "RECON_SCAN",
+    "C2_BEACONING"
+  ],
+  "train_flow_count": 1942,
+  "test_flow_count": 259,
+  "model_type": "HistGradientBoostingClassifier",
+  "trained_classes": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "two_tier_architecture": {
+    "tier_1": "Supervised Random Forest Classifier (Multi-Class Signature/Behavior)",
+    "tier_2": "Isolation Forest Anomaly Detector (Zero-Day Anomaly Detection)"
+  }
+}
